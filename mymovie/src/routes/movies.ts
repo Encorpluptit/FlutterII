@@ -13,6 +13,7 @@ router.get('/', async (req: express.Request, res: express.Response) => {
         'synopsis': movie.synopsis,
         'release_date': movie.release_date,
         'poster': movie.poster,
+        'images': movie.images,
     }));
 
     res.status(200).send({
@@ -50,6 +51,7 @@ router.get('/:id', async (req: express.Request, res: express.Response) => {
             synopsis: movie.synopsis,
             release_date: movie.release_date,
             poster: movie.poster,
+            images: movie.images,
         },
     });
 });
@@ -87,12 +89,13 @@ router.delete('/:id', async (req: express.Request, res: express.Response) => {
             synopsis: movie_copy.synopsis,
             release_date: movie_copy.release_date,
             poster: movie_copy.poster,
+            images: movie_copy.images,
         },
     });
 });
 
 router.post('/', async (req: express.Request, res: express.Response) => {
-    const { title, synopsis, release_date, poster } = req.body;
+    const { title, synopsis, release_date, poster, images } = req.body;
 
     if (!title || !synopsis || !release_date) {
         res.status(400).send({
@@ -107,6 +110,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
         synopsis,
         release_date,
         poster,
+        images,
     });
 
     await movie.save();
@@ -119,6 +123,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
             synopsis: movie.synopsis,
             release_date: movie.release_date,
             poster: movie.poster,
+            images: movie.images,
         },
     });
 });

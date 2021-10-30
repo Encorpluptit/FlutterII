@@ -8,7 +8,7 @@ import debug from './routes/debug';
 const app = express();
 
 const mongo_host = process.env.DB_HOST || 'localhost';
-const mongo_uri = `mongodb://${mongo_host}:27017`;
+const mongo_uri = `mongodb://${mongo_host}:27017/MyMovie`;
 
 mongoose.connect(mongo_uri, function (err) {
     if (err) {
