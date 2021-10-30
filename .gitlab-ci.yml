@@ -37,6 +37,7 @@ deploy_production:
   stage: deploy
   image: ruby:2.6
   script:
+    - cd mymovie
     - apt-get update -yq
     - apt-get install -y ruby-dev
     - gem install dpl
