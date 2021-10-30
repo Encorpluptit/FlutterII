@@ -28,7 +28,7 @@ router.get('/fill_db', async (req: express.Request, res: express.Response) => {
 
         let movie_images = null;
         try {
-            movie_images = await axios.get(`https://api.themoviedb.org/3/movie/${imported_movie.id}/images?api_key=${API_KEY}`);
+            movie_images = await axios.get(`https://api.themoviedb.org/3/movie/${imported_movie.id as string}/images?api_key=${API_KEY}`);
             movie_images = movie_images.data;
         } catch (err: unknown) {
             res.status(500).send({
