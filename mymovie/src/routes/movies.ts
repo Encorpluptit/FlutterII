@@ -11,7 +11,8 @@ router.get("/", async (req: express.Request, res: express.Response) => {
         "id": movie._id,
         "title": movie.title,
         "synopsis": movie.synopsis,
-        "release_date": movie.release_date
+        "release_date": movie.release_date,
+        "poster": movie.poster,
     }));
 
     res.status(200).send({
@@ -47,7 +48,8 @@ router.get("/:id", async (req: express.Request, res: express.Response) => {
             id: movie._id,
             title: movie.title,
             synopsis: movie.synopsis,
-            release_date: movie.release_date
+            release_date: movie.release_date,
+            poster: movie.poster,
         },
     });
 });
@@ -83,13 +85,14 @@ router.delete("/:id", async (req: express.Request, res: express.Response) => {
             id: movie_copy._id,
             title: movie_copy.title,
             synopsis: movie_copy.synopsis,
-            release_date: movie_copy.release_date
+            release_date: movie_copy.release_date,
+            poster: movie_copy.poster,
         },
     });
 });
 
 router.post("/", async (req: express.Request, res: express.Response) => {
-    const { title, synopsis, release_date } = req.body;
+    const { title, synopsis, release_date, poster } = req.body;
 
     if (!title || !synopsis || !release_date) {
         res.status(400).send({
@@ -102,7 +105,8 @@ router.post("/", async (req: express.Request, res: express.Response) => {
     const movie = new Movie({
         title,
         synopsis,
-        release_date
+        release_date,
+        poster,
     });
 
     await movie.save();
@@ -113,7 +117,8 @@ router.post("/", async (req: express.Request, res: express.Response) => {
             id: movie._id,
             title: movie.title,
             synopsis: movie.synopsis,
-            release_date: movie.release_date
+            release_date: movie.release_date,
+            poster: movie.poster,
         },
     });
 });

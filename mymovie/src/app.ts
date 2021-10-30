@@ -3,6 +3,7 @@ import http from 'http';
 import cors from "cors";
 import mongoose from "mongoose";
 import movies from './routes/movies';
+import debug from './routes/debug';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.get("/health", (req, res) => {
     res.status(200).send('OK');
 });
 app.use("/movies", movies);
+app.use("/debug", debug);
 
 const httpServer = http.createServer(app);
 const port = process.env.PORT || 8080;
