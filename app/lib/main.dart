@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/src/constants/global.dart';
+import 'package:movieapp/src/ui/widgets/movie_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,68 +50,188 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        // title: Image.asset("res/graphic/icon_netflix.png"),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        leading: const Icon(
+          Icons.menu,
+          color: Colors.black,
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.search,
+              color: Colors.black, // Here
+            ),
+            onPressed: () {},
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: Container(
+        color: Colors.white,
+        height: height,
+        child: ScrollConfiguration(
+            behavior: MyScrollBehavior(), child: _buildMyList(context)
+            // child: SingleChildScrollView(
+            //   child: Column(
+            //     children: <Widget>[
+            //       // SlideShowView(
+            //       //   onItemInteraction: (movieId) {
+            //       //     _navigateToMovieDetail(context, movieId);
+            //       //   },
+            //       // ),
+            //       const Padding(
+            //         padding: EdgeInsets.only(top: 10),
+            //       ),
+            //       // MovieCategory(),
+            //       const Padding(
+            //         padding: EdgeInsets.only(top: 10),
+            //       ),
+            //       _buildMyList(context),
+            //       const Padding(
+            //         padding: EdgeInsets.only(top: 10),
+            //       ),
+            //       // _buildPopularList(context),
+            //     ],
+            //   ),
+            // ),
+            ),
+      ),
     );
   }
+
+  _buildMyList(BuildContext context) {
+    return MovieListView(
+      type: MovieListType.topRated,
+      onItemInteraction: (movieId) {
+        _navigateToMovieDetail(context, movieId);
+      },
+    );
+
+    // return Container(
+    //   child: Column(
+    //     children: <Widget>[
+    //       Padding(
+    //         padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+    //         child: Row(
+    //           children: const <Widget>[
+    //             Expanded(
+    //               child: Text(
+    //                 "My List",
+    //                 style: TextStyle(
+    //                     color: Colors.black,
+    //                     fontSize: 16.0,
+    //                     fontWeight: FontWeight.bold,
+    //                     fontFamily: "Muli"),
+    //               ),
+    //             ),
+    //             Icon(
+    //               Icons.arrow_forward,
+    //               color: Colors.black,
+    //             )
+    //           ],
+    //         ),
+    //       ),
+    //       MovieListView(
+    //         type: MovieListType.topRated,
+    //         onItemInteraction: (movieId) {
+    //           _navigateToMovieDetail(context, movieId);
+    //         },
+    //       )
+    //     ],
+    //   ),
+    // );
+  }
+
+  _navigateToMovieDetail(BuildContext context, int movieId) {
+    print('go to movie: $movieId');
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => MovieDetailPage(movieId: movieId),
+    //   ),
+    // );
+  }
 }
+
+class MyScrollBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
+  }
+}
+
+// class _MyHomePageState extends State<MyHomePage> {
+//   int _counter = 0;
+//
+//   void _incrementCounter() {
+//     setState(() {
+//       // This call to setState tells the Flutter framework that something has
+//       // changed in this State, which causes it to rerun the build method below
+//       // so that the display can reflect the updated values. If we changed
+//       // _counter without calling setState(), then the build method would not be
+//       // called again, and so nothing would appear to happen.
+//       _counter++;
+//     });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     // This method is rerun every time setState is called, for instance as done
+//     // by the _incrementCounter method above.
+//     //
+//     // The Flutter framework has been optimized to make rerunning build methods
+//     // fast, so that you can just rebuild anything that needs updating rather
+//     // than having to individually change instances of widgets.
+//     return Scaffold(
+//       appBar: AppBar(
+//         // Here we take the value from the MyHomePage object that was created by
+//         // the App.build method, and use it to set our appbar title.
+//         title: Text(widget.title),
+//       ),
+//       body: Center(
+//         // Center is a layout widget. It takes a single child and positions it
+//         // in the middle of the parent.
+//         child: Column(
+//           // Column is also a layout widget. It takes a list of children and
+//           // arranges them vertically. By default, it sizes itself to fit its
+//           // children horizontally, and tries to be as tall as its parent.
+//           //
+//           // Invoke "debug painting" (press "p" in the console, choose the
+//           // "Toggle Debug Paint" action from the Flutter Inspector in Android
+//           // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+//           // to see the wireframe for each widget.
+//           //
+//           // Column has various properties to control how it sizes itself and
+//           // how it positions its children. Here we use mainAxisAlignment to
+//           // center the children vertically; the main axis here is the vertical
+//           // axis because Columns are vertical (the cross axis would be
+//           // horizontal).
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             const Text(
+//               'You have pushed the button this many times:',
+//             ),
+//             Text(
+//               '$_counter',
+//               style: Theme.of(context).textTheme.headline4,
+//             ),
+//           ],
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: _incrementCounter,
+//         tooltip: 'Increment',
+//         child: const Icon(Icons.add),
+//       ), // This trailing comma makes auto-formatting nicer for build methods.
+//     );
+//   }
+// }
