@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  db:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    networks:
+      - mymovie-tier
+    volumes:
+      - db_data:/data/db
+  api:
+    build: ./
+    ports:
+      - 8080:8080
+    networks:
+      - mymovie-tier
+    depends_on:
+      - db
+    environment:
+      DB_HOST: 'DB'
+      PORT: 8080
+
+networks:
+  mymovie-tier:
+
+volumes:
+  db_data:
