@@ -3,19 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:movieapp/src/models/item_model.dart';
 
-// class MovieListItem extends StatefulWidget {
-//   // final String type;
-//   // final Function(int movieId) onItemInteraction;
-//
-//   const MovieListItem(
-//       {Key? key})
-//       : super(key: key);
-//
-//   @override
-//   State createState() => _MovieListViewState();
-// }
-
-// class _MovieListItemViewState extends State<MovieListView> {
 class MovieListItemViewState extends StatelessWidget {
   final ItemModel movie;
   final Function(int movieId) navigateToItemDetail;
@@ -147,6 +134,45 @@ class MovieListItemViewState extends StatelessWidget {
                   )
                 ],
               ),
+// =======
+//       color: const Color.fromARGB(100, 120, 144, 156),
+//       child: Row(
+//         mainAxisSize: MainAxisSize.min,
+//         crossAxisAlignment: CrossAxisAlignment.center,
+//         children: <Widget>[
+//           Flexible(
+//               child: Image.network(
+//                   'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+//                   fit: BoxFit.cover)),
+//           Flexible(
+//             child: Column(
+//               mainAxisSize: MainAxisSize.min,
+//               children: [
+//                 Flexible(
+//                   child: Text(
+//                     movie.title,
+//                     softWrap: true,
+//                     maxLines: 1,
+//                     overflow: TextOverflow.ellipsis,
+//                     style: const TextStyle(fontWeight: FontWeight.bold),
+//                   ),
+//                 ),
+//                 const Divider(
+//                   color: Colors.black,
+//                   thickness: 2,
+//                 ),
+//                 Padding(
+//                     padding: const EdgeInsets.all(8.0),
+//                     child: Flexible(
+//                       child: Text(
+//                         movie.overview,
+//                         softWrap: true,
+//                         maxLines: 20,
+//                         overflow: TextOverflow.ellipsis,
+//                       ),
+//                     )),
+//               ],
+// >>>>>>> 8b0f7c7 (Add a better design for movie list item)
             ),
           ),
         ],
