@@ -45,4 +45,4 @@ deploy_production:
   environment:
     name: production
   only:
-    - master
+    - main
