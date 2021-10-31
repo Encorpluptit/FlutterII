@@ -5,10 +5,10 @@ import 'package:movieapp/src/ui/widgets/movie_list_item.dart';
 
 class MovieListView extends StatefulWidget {
   final String type;
-  final Function(int movieId) onItemInteraction;
+  final Function(int movieId) navigateToItemDetail;
 
   const MovieListView(
-      {Key? key, required this.type, required this.onItemInteraction})
+      {Key? key, required this.type, required this.navigateToItemDetail})
       : super(key: key);
 
   @override
@@ -44,36 +44,19 @@ class _MovieListViewState extends State<MovieListView> {
         scrollDirection: Axis.vertical,
         itemCount: snapshot.data!.results.length,
         itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-              onTap: () {
-                widget.onItemInteraction(snapshot.data!.results[index].id);
-              },
-              child:
-                  MovieListItemViewState(movie: snapshot.data!.results[index])
-              // child: _buildItem(
-              //     snapshot.data!.results[index].posterPath,
-              //     snapshot.data!.results[index].backdropPath,
-              //     width / 4,
-              //     index == 0),
-              );
-        },
-      ),
-    );
-  }
+          return MovieListItemViewState(
+            movie: snapshot.data!.results[index],
+            navigateToItemDetail: widget.navigateToItemDetail,
+          );
 
-  _buildItem(
-      String imagePath, String backdropPath, double itemHeight, bool isFirst) {
-    return Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 10.0,
-      margin: EdgeInsets.only(left: isFirst ? 20 : 10, right: 10, bottom: 20),
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      child: Image.network(
-        'https://image.tmdb.org/t/p/w500$imagePath',
-        fit: BoxFit.cover,
-        width: itemHeight * 4 / 3,
-        height: itemHeight,
+          // return InkWell(
+          //     onTap: () {
+          //       widget.navigateToItemDetail(snapshot.data!.results[index].id);
+          //     },
+          //     child:
+          //         MovieListItemViewState(movie: snapshot.data!.results[index])
+          //     );
+        },
       ),
     );
   }

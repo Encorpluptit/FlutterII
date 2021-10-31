@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movieapp/src/constants/global.dart';
 import 'package:movieapp/src/ui/widgets/movie_list.dart';
 
@@ -26,6 +27,16 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''), // English, no country code
+        Locale('es', ''), // Spanish, no country code
+        Locale('fr', ''), // French, no country code
+      ],
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -110,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _buildMyList(BuildContext context) {
     return MovieListView(
       type: MovieListType.topRated,
-      onItemInteraction: (movieId) {
+      navigateToItemDetail: (movieId) {
         _navigateToMovieDetail(context, movieId);
       },
     );

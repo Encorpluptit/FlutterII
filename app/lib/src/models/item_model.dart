@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:movieapp/src/models/base_model.dart';
 
 class ItemModel extends BaseModel {
@@ -14,7 +15,8 @@ class ItemModel extends BaseModel {
   String _backdropPath = "";
   bool _adult = false;
   String _overview = "";
-  String _releaseDate = "";
+  DateTime? _releaseDate;
+  // DateTime _releaseDate2 = new DateTime();
 
   ItemModel(result) {
     _voteCount = result['vote_count'];
@@ -32,10 +34,10 @@ class ItemModel extends BaseModel {
     _backdropPath = result['backdrop_path'];
     _adult = result['adult'];
     _overview = result['overview'];
-    _releaseDate = result['release_date'];
+    _releaseDate = DateFormat("yyyy-MM-dd").parse(result['release_date']);
   }
 
-  String get releaseDate => _releaseDate;
+  DateTime? get releaseDate => _releaseDate;
 
   String get overview => _overview;
 
