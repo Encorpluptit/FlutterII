@@ -1,0 +1,49 @@
+default:
+  image: 'node:lts-alpine'
+
+stages:
+  - lint
+  - build
+  - deploy
+
+lint:
+  stage: lint
+  cache:
+    key: back-node-modules
+    paths:
+      - node_modules/
+    policy: push
+  script:
+    - cd mymovie
+    - npm i
+    - npm run lint
+
+build:
+  stage: build
+  cache:
+    key: back-node-modules
+    paths:
+      - node_modules/
+    policy: pull
+  script:
+    - cd mymovie
+    - npm i
+
+variables:
+  HEROKU_API_KEY: 00548b74-397a-4ec0-9e99-7b410195c015
+  HEROKU_PROJECT: flutter-mymovie-api
+
+deploy_production:
+  stage: deploy
+  image: ruby:2.6
+  script:
+    - cd mymovie
+    - apt-get update -yq
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_PROJECT --api_key=$HEROKU_API_KEY
+    - echo "Deployed to production server"
+  environment:
+    name: production
+  only:
+    - main
