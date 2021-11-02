@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/movies_list_bloc.dart';
+import 'package:movieapp/src/models/item_model.dart';
 import 'package:movieapp/src/models/list_item_model.dart';
 import 'package:movieapp/src/ui/widgets/movie_list_item.dart';
 
 class MovieListView extends StatefulWidget {
   final String type;
-  final Function(int movieId) navigateToItemDetail;
+  final Function(ItemModel movie) navigateToItemDetail;
 
   const MovieListView(
       {Key? key, required this.type, required this.navigateToItemDetail})

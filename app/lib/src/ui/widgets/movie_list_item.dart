@@ -5,7 +5,7 @@ import 'package:movieapp/src/models/item_model.dart';
 
 class MovieListItemViewState extends StatelessWidget {
   final ItemModel movie;
-  final Function(int movieId) navigateToItemDetail;
+  final Function(ItemModel movie) navigateToItemDetail;
 
   MovieListItemViewState({
     required this.movie,
@@ -62,7 +62,7 @@ class MovieListItemViewState extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-                navigateToItemDetail(movie.id);
+                navigateToItemDetail(movie);
               },
               onLongPress: () async {
                 showImageDialog(ctx: context, path: posterPath);
@@ -89,7 +89,7 @@ class MovieListItemViewState extends StatelessWidget {
             fit: FlexFit.tight,
             child: InkWell(
               onTap: () {
-                navigateToItemDetail(movie.id);
+                navigateToItemDetail(movie);
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,

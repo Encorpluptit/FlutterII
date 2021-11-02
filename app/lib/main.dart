@@ -5,6 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movieapp/src/constants/global.dart';
+import 'package:movieapp/src/models/item_model.dart';
+import 'package:movieapp/src/ui/widgets/movie_details.dart';
 import 'package:movieapp/src/ui/widgets/movie_list.dart';
 
 void main() => runApp(const MyApp());
@@ -122,8 +124,8 @@ class _MyHomePageState extends State<MyHomePage> {
   _buildMyList(BuildContext context) {
     return MovieListView(
       type: MovieListType.topRated,
-      navigateToItemDetail: (movieId) {
-        _navigateToMovieDetail(context, movieId);
+      navigateToItemDetail: (movie) {
+        _navigateToMovieDetail(context, movie);
       },
     );
 
@@ -162,14 +164,14 @@ class _MyHomePageState extends State<MyHomePage> {
     // );
   }
 
-  _navigateToMovieDetail(BuildContext context, int movieId) {
-    print('go to movie: $movieId');
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => MovieDetailPage(movieId: movieId),
-    //   ),
-    // );
+  _navigateToMovieDetail(BuildContext context, ItemModel movie) {
+    // print('go to movie: $movieId');
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MovieDetailsScreen(movie: movie),
+      ),
+    );
   }
 }
 
