@@ -17,8 +17,8 @@ class MovieDetailsScreen extends StatefulWidget {
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
           child: Container(
               margin:
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
