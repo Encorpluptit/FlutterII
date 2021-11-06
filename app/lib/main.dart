@@ -169,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MovieDetailsScreen(movie: movie),
+        builder: (context) => const MovieDetailsScreen(),
       ),
     );
   }
