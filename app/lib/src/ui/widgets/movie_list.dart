@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/models/movie.dart';
 
-import 'movie_tem.dart';
+import 'movie_item.dart';
 
 class MovieListView extends StatefulWidget {
   final List<Movie> movies;
