@@ -17,4 +17,16 @@ class MovieApiProvider {
       throw Exception('Failed to load post');
     }
   }
+
+  Future<Object> fetchMovieDetails(String id) async {
+    //TODO
+    var url = Uri.parse("http://api.themoviedb.org/3/movie/?api_key=$_apiKey");
+    final response = await client.get(url);
+    if (response.statusCode == 200) {
+      final results = json.decode(response.body);
+      return (results["results"]);
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
 }

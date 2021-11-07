@@ -13,9 +13,6 @@ class _HomeAppBarState extends State<HomeAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: const Icon(
-        Icons.menu,
-      ),
       title: const Text('MyMovie'),
       backgroundColor: Colors.blue,
     );
