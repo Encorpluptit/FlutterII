@@ -8,21 +8,12 @@ abstract class MovieListState {
 
 class MovieListLoading extends MovieListState {
   MovieListLoading();
-
-  @override
-  List<Object> get props => [];
 }
 
-class MovieListSuccess extends MovieListState {
+class MovieListLoadedSuccess extends MovieListState {
   final List<Movie> movies;
 
-  const MovieListSuccess([this.movies = const []]);
-
-  @override
-  List<Object> get props => [movies];
-
-  @override
-  String toString() => 'MovieListSuccess { todos: $movies }';
+  const MovieListLoadedSuccess([this.movies = const []]);
 }
 
-class MovieListFailure extends MovieListState {}
+class MovieListLoadedFailure extends MovieListState {}

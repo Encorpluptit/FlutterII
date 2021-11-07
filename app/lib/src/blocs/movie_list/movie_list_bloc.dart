@@ -14,12 +14,12 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
 
   @override
   Stream<MovieListState> mapEventToState(MovieListEvent event) async* {
-    if (event is MovieListLoaded) {
-      yield* _MovieListLoaded();
+    if (event is MovieListLoadEvent || event is MovieListRefreshEvent) {
+      yield* _MovieListLoad();
     }
   }
 
-  Stream<MovieListState> _MovieListLoaded() async* {
+  Stream<MovieListState> _MovieListLoad() async* {
     try {
       final movies =
           await repository.fetchMovieList(MovieListType.topRated) as dynamic;
@@ -27,9 +27,9 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
       for (int i = 0; i < movies.length; i++) {
         _movies.add(Movie(movies[i]));
       }
-      yield MovieListSuccess(_movies);
+      yield MovieListLoadedSuccess(_movies);
     } catch (_) {
-      yield MovieListFailure();
+      yield MovieListLoadedFailure();
     }
   }
 }
