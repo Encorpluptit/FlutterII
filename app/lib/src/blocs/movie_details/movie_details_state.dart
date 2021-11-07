@@ -2,8 +2,6 @@ part of 'movie_details_bloc.dart';
 
 abstract class MovieDetailsState {
   const MovieDetailsState();
-
-  List<Object> get props => [];
 }
 
 class MovieDetailsLoading extends MovieDetailsState {
@@ -11,9 +9,9 @@ class MovieDetailsLoading extends MovieDetailsState {
 }
 
 class MovieDetailsLoadedSuccess extends MovieDetailsState {
-  final List<Movie> movies;
+  final Movie movie;
 
-  const MovieDetailsLoadedSuccess([this.movies = const []]);
+  const MovieDetailsLoadedSuccess(this.movie);
 }
 
 class MovieDetailsLoadedFailure extends MovieDetailsState {}

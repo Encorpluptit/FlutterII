@@ -20,12 +20,10 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
 
   Stream<MovieDetailsState> _MovieDetailsLoad() async* {
     try {
+      //TODO
       final movies = await repository.fetchMovieDetails("state") as dynamic;
-      List<Movie> _movies = [];
-      for (int i = 0; i < movies.length; i++) {
-        _movies.add(Movie(movies[i]));
-      }
-      yield MovieDetailsLoadedSuccess(_movies);
+      //TODO
+      yield MovieDetailsLoadedSuccess(movies);
     } catch (_) {
       yield MovieDetailsLoadedFailure();
     }
