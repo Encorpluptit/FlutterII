@@ -17,10 +17,14 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
     if (event is MovieListLoadEvent || event is MovieListRefreshEvent) {
       yield* _MovieListLoad();
     }
+    if (event is MovieListClickOnDetails) {
+      yield* _MovieListClickOnDetails(event);
+    }
   }
 
   Stream<MovieListState> _MovieListLoad() async* {
     try {
+      yield MovieListLoading();
       final movies =
           await repository.fetchMovieList(MovieListType.topRated) as dynamic;
       List<Movie> _movies = [];
@@ -31,5 +35,10 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
     } catch (_) {
       yield MovieListLoadedFailure();
     }
+  }
+
+  Stream<MovieListState> _MovieListClickOnDetails(
+      MovieListClickOnDetails event) async* {
+    yield MovieListClickOnDetailsSuccess(event.id);
   }
 }

@@ -11,3 +11,9 @@ abstract class MovieListEvent {
 class MovieListLoadEvent extends MovieListEvent {}
 
 class MovieListRefreshEvent extends MovieListEvent {}
+
+class MovieListClickOnDetails extends MovieListEvent {
+  final int id;
+
+  const MovieListClickOnDetails(this.id);
+}
