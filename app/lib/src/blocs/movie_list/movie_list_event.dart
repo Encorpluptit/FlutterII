@@ -8,4 +8,6 @@ abstract class MovieListEvent {
   List<Object> get props => [];
 }
 
-class MovieListLoaded extends MovieListEvent {}
+class MovieListLoadEvent extends MovieListEvent {}
+
+class MovieListRefreshEvent extends MovieListEvent {}

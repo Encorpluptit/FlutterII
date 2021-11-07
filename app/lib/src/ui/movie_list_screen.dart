@@ -4,11 +4,11 @@ import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
 import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
 import 'package:movieapp/src/ui/widgets/movie_list.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class MovieListScreen extends StatefulWidget {
+  const MovieListScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _MovieListScreenState createState() => _MovieListScreenState();
 }
 
 class MyScrollBehavior extends ScrollBehavior {
@@ -19,14 +19,14 @@ class MyScrollBehavior extends ScrollBehavior {
   }
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MovieListScreenState extends State<MovieListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const HomeAppBar(),
         body: BlocListener<MovieListBloc, MovieListState>(
             listener: (context, state) {
-          if (state is MovieListFailure) {
+          if (state is MovieListLoadedFailure) {
             const snackBar = SnackBar(
               duration: Duration(minutes: 5),
               content: Text(
@@ -39,11 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (context, state) {
           if (state is MovieListLoading) {
             return (const CircularProgressIndicator());
-          } else if (state is MovieListSuccess) {
-            return (Container(
-                color: Colors.white,
+          } else if (state is MovieListLoadedSuccess) {
+            return (RefreshIndicator(
+                onRefresh: () async {
+                  BlocProvider.of<MovieListBloc>(context)
+                      .add(MovieListLoadEvent());
+                },
                 child: MovieListView(movies: state.movies)));
-          } else if (state is MovieListFailure) {
+          } else if (state is MovieListLoadedFailure) {
             return (Container());
           } else {
             return (Container());
