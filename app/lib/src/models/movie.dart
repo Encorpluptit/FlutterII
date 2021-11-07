@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:movieapp/src/models/base_model.dart';
 
-class ItemModel extends BaseModel {
+class Movie extends BaseModel {
   int _voteCount = 0;
   int _id = 0;
   bool _video = false;
@@ -16,9 +16,8 @@ class ItemModel extends BaseModel {
   bool _adult = false;
   String _overview = "";
   DateTime? _releaseDate;
-  // DateTime _releaseDate2 = new DateTime();
 
-  ItemModel(result) {
+  Movie(result) {
     _voteCount = result['vote_count'];
     _id = result['id'];
     _video = result['video'];
