@@ -13,7 +13,7 @@ class MovieListLoadEvent extends MovieListEvent {}
 class MovieListRefreshEvent extends MovieListEvent {}
 
 class MovieListClickOnDetails extends MovieListEvent {
-  final int id;
+  final String id;
 
   const MovieListClickOnDetails(this.id);
 }

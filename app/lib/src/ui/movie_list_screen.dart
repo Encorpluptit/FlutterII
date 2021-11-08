@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
 import 'package:movieapp/src/ui/movie_details_screen.dart';
 import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
-import 'package:movieapp/src/ui/widgets/home_drawer.dart';
 import 'package:movieapp/src/ui/widgets/movie_list.dart';
 
 class MovieListScreen extends StatefulWidget {
@@ -19,7 +18,6 @@ class _MovieListScreenState extends State<MovieListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const HomeAppBar(),
-      drawer: const HomeDrawer(),
       body: BlocListener<MovieListBloc, MovieListState>(
         listener: (context, state) {
           if (state is MovieListLoadedFailure) {
@@ -46,7 +44,9 @@ class _MovieListScreenState extends State<MovieListScreen> {
           return (true);
         }, builder: (context, state) {
           if (state is MovieListLoading) {
-            return (const CircularProgressIndicator());
+            return (const Center(
+              child: CircularProgressIndicator(),
+            ));
           } else if (state is MovieListLoadedSuccess) {
             return (RefreshIndicator(
                 onRefresh: () async {
