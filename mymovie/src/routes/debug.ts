@@ -43,7 +43,7 @@ router.get('/fill_db', async (req: express.Request, res: express.Response) => {
             title: imported_movie.title,
             synopsis: imported_movie.overview,
             release_date: imported_movie.release_date,
-            poster: `https://image.tmdb.org/t/p/w500${imported_movie.backdrop_path as string}`,
+            poster: `https://image.tmdb.org/t/p/w500${imported_movie.poster_path as string}`,
             images: images.map((image: { file_path: string; }) => `https://image.tmdb.org/t/p/original${image.file_path}`)
         });
 
