@@ -19,7 +19,7 @@ class MovieListLoadedSuccess extends MovieListState {
 class MovieListLoadedFailure extends MovieListState {}
 
 class MovieListClickOnDetailsSuccess extends MovieListState {
-  final int id;
+  final String id;
 
   const MovieListClickOnDetailsSuccess(this.id);
 }

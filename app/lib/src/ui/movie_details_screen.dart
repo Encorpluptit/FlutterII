@@ -5,7 +5,7 @@ import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
 import 'package:movieapp/src/ui/widgets/home_drawer.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
-  final int id;
+  final String id;
 
   const MovieDetailsScreen({Key? key, required this.id}) : super(key: key);
 
@@ -18,7 +18,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const HomeAppBar(),
-      drawer: const HomeDrawer(),
       body: BlocListener<MovieDetailsBloc, MovieDetailsState>(
         listener: (context, state) {},
         child: BlocBuilder<MovieDetailsBloc, MovieDetailsState>(

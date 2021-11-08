@@ -17,6 +17,7 @@ class _MovieListViewState extends State<MovieListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GridView.count(
+        cacheExtent: 999,
         crossAxisCount: 2,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
 import 'package:movieapp/src/models/movie.dart';
+import 'package:movieapp/src/ui/widgets/custom_image.dart';
 
 class MovieItem extends StatelessWidget {
   const MovieItem({
@@ -35,13 +36,10 @@ class MovieItem extends StatelessWidget {
           ),
         ),
         child: Material(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-          clipBehavior: Clip.antiAlias,
-          child: Image.network(
-            'https://image.tmdb.org/t/p/w500${movie.posterPath.toString()}',
-            fit: BoxFit.cover,
-          ),
-        ),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            clipBehavior: Clip.antiAlias,
+            child: ImageWithLoading(imageUrl: movie.poster)),
       ),
     );
   }
