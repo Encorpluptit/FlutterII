@@ -15,6 +15,15 @@ class MovieListView extends StatefulWidget {
 class _MovieListViewState extends State<MovieListView> {
   @override
   Widget build(BuildContext context) {
+    if (widget.movies.isEmpty) {
+      return (const Scaffold(
+          body: Center(
+        child: Text(
+          "Nothing 😢",
+          style: TextStyle(fontSize: 20),
+        ),
+      )));
+    }
     return Scaffold(
       body: GridView.count(
         cacheExtent: 999,

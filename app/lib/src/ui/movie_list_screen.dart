@@ -21,11 +21,17 @@ class _MovieListScreenState extends State<MovieListScreen> {
       body: BlocListener<MovieListBloc, MovieListState>(
         listener: (context, state) {
           if (state is MovieListLoadedFailure) {
-            const snackBar = SnackBar(
+            var snackBar = SnackBar(
               duration: Duration(minutes: 5),
-              content: Text(
-                  'Eror while retriving the movies. Please try again later.'),
+              content: Text(state.cause),
               backgroundColor: Colors.red,
+              action: SnackBarAction(
+                label: 'Retry',
+                onPressed: () {
+                  BlocProvider.of<MovieListBloc>(context)
+                      .add(MovieListLoadEvent());
+                },
+              ),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
@@ -55,7 +61,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
                 },
                 child: MovieListView(movies: state.movies)));
           } else if (state is MovieListLoadedFailure) {
-            return (Container());
+            return (const MovieListView(movies: []));
           } else {
             return (Container());
           }

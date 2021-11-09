@@ -16,7 +16,11 @@ class MovieListLoadedSuccess extends MovieListState {
   const MovieListLoadedSuccess([this.movies = const []]);
 }
 
-class MovieListLoadedFailure extends MovieListState {}
+class MovieListLoadedFailure extends MovieListState {
+  String cause = "";
+
+  MovieListLoadedFailure(this.cause);
+}
 
 class MovieListClickOnDetailsSuccess extends MovieListState {
   final String id;
