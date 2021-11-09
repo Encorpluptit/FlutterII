@@ -3,20 +3,23 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/bloc.dart';
 
+typedef ShouldBuild<S> = bool Function(S state);
 typedef Listener<S> = void Function(BuildContext context, S state);
 typedef Builder<S> = void Function(BuildContext context, S state);
 
 class BlocBuilder<B extends BlocControllerState<S>, S> extends StatefulWidget {
   final B bloc;
   final Widget child;
-  final Listener<S> listener;
+  final Listener<S>? listener;
+  final ShouldBuild<S>? shouldBuild;
 
-  const BlocBuilder({
-    Key? key,
-    required this.bloc,
-    required this.child,
-    required this.listener,
-  }) : super(key: key);
+  const BlocBuilder(
+      {Key? key,
+      required this.bloc,
+      required this.child,
+      this.listener,
+      this.shouldBuild})
+      : super(key: key);
 
   @override
   _BlocBuilder<B, S> createState() => _BlocBuilder<B, S>();
@@ -29,7 +32,7 @@ class _BlocBuilder<B extends BlocControllerState<S>, S>
   @override
   void initState() {
     super.initState();
-    _subscribe();
+    _listen();
   }
 
   @override
@@ -39,12 +42,19 @@ class _BlocBuilder<B extends BlocControllerState<S>, S>
 
   @override
   void dispose() {
+    listener.cancel();
     super.dispose();
   }
 
-  void _subscribe() {
-    listener = widget.bloc.output.listen((st) {
-      widget.listener(context, st);
-    });
+  void _listen() {
+    if (widget.listener != null) {
+      listener = widget.bloc.output.listen((st) {
+        if (widget.shouldBuild != null) {
+          if (widget.shouldBuild?.call(st) ?? true) {
+            widget.listener!(context, st);
+          }
+        }
+      });
+    }
   }
 }

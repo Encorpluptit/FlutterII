@@ -50,9 +50,13 @@ class _MovieListScreenState extends State<MovieListScreen> {
                     builder: (context) => MovieDetailsScreen(id: state.id)));
           }
         },
+        shouldBuild: (state) {
+          return (true);
+        },
         child: StreamBuilder<MovieListState>(
             stream: bloc.output,
             builder: (context, _state) {
+              print(_state.data);
               var state = _state.data;
               if (state is MovieListLoading) {
                 return (const Center(
