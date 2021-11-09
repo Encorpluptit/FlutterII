@@ -32,8 +32,10 @@ class HomeMainRouteState extends State<MainRoutes> {
   }
 
   void _onItemTapped(int index) {
+    /*
     BlocProvider.of<RoutesBloc>(context)
         .add(RoutesRedirectEvent(NavigationRoutes[index].label));
+        */
     setState(() {
       _selectedIndex = index;
     });

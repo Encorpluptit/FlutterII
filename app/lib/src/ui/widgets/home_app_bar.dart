@@ -22,6 +22,8 @@ class _HomeAppBarState extends State<HomeAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    return Text("Hello");
+    /*
     return BlocListener<RoutesBloc, RoutesState>(
       listener: (context, state) {
         if (state is RoutesRedirect) {
@@ -35,5 +37,6 @@ class _HomeAppBarState extends State<HomeAppBar> {
         backgroundColor: Colors.blue,
       ),
     );
+    */
   }
 }

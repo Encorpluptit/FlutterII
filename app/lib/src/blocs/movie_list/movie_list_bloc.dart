@@ -1,6 +1,8 @@
-import 'package:bloc/bloc.dart';
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
+import 'package:movieapp/src/blocs/bloc.dart';
 import 'package:movieapp/src/constants/global.dart';
 import 'package:movieapp/src/models/movie.dart';
 import 'package:movieapp/src/resources/repository.dart';
@@ -8,37 +10,37 @@ import 'package:movieapp/src/resources/repository.dart';
 part 'movie_list_event.dart';
 part 'movie_list_state.dart';
 
-class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
+class MovieListBloc extends Bloc<MovieListState, MovieListEvent> {
   final Repository repository = Repository();
-  MovieListBloc() : super(MovieListLoading());
+
+  MovieListBloc();
 
   @override
-  Stream<MovieListState> mapEventToState(MovieListEvent event) async* {
+  Future<void> mapEventToState(Object event) async {
     if (event is MovieListLoadEvent || event is MovieListRefreshEvent) {
-      yield* _MovieListLoad();
+      setState(await _MovieListLoad());
     }
     if (event is MovieListClickOnDetails) {
-      yield* _MovieListClickOnDetails(event);
+      setState(await _MovieListClickOnDetails(event));
     }
   }
 
-  Stream<MovieListState> _MovieListLoad() async* {
+  Future<MovieListState> _MovieListLoad() async {
     try {
-      yield MovieListLoading();
       final movies =
           await repository.fetchMovieList(MovieListType.topRated) as dynamic;
       List<Movie> _movies = [];
       for (int i = 0; i < movies.length; i++) {
         _movies.add(Movie(movies[i]));
       }
-      yield MovieListLoadedSuccess(_movies);
+      return MovieListLoadedSuccess(_movies);
     } on Exception catch (error) {
-      yield MovieListLoadedFailure(error.toString());
+      return MovieListLoadedFailure(error.toString());
     }
   }
 
-  Stream<MovieListState> _MovieListClickOnDetails(
-      MovieListClickOnDetails event) async* {
-    yield MovieListClickOnDetailsSuccess(event.id);
+  Future<MovieListState> _MovieListClickOnDetails(
+      MovieListClickOnDetails event) async {
+    return (MovieListClickOnDetailsSuccess(event.id));
   }
 }

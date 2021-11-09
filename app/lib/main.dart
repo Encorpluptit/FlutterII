@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movieapp/src/blocs/movie_details/movie_details_bloc.dart';
+import 'package:movieapp/src/blocs/bloc.dart';
 import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
-import 'package:movieapp/src/blocs/routes/routes_bloc.dart';
 import 'package:movieapp/src/ui/routes/main_routes.dart';
+import 'package:movieapp/src/blocs/provider.dart';
+
+void addBlocs(List<Bloc> blocs) {
+  Provider.blocs = blocs;
+}
 
 void main() {
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider(create: (context) {
-      return MovieListBloc()..add(MovieListLoadEvent());
-    }),
-    BlocProvider(create: (context) {
-      return MovieDetailsBloc()..add(MovieDetailsLoadEvent());
-    }),
-    BlocProvider(create: (context) {
-      return RoutesBloc()..add(RoutesRedirectEvent(NavigationRoutes[0].label));
-    }),
-  ], child: const MyApp()));
+  addBlocs([
+    MovieListBloc(),
+  ]);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

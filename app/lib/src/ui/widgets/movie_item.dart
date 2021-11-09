@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
+import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/models/movie.dart';
 import 'package:movieapp/src/ui/widgets/custom_image.dart';
 
@@ -16,8 +16,8 @@ class MovieItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        BlocProvider.of<MovieListBloc>(context)
-            .add(MovieListClickOnDetails(movie.id));
+        Provider.getBloc<MovieListBloc>()
+            .dispatch(MovieListClickOnDetails(movie.id));
       },
       child: GridTile(
         footer: Material(

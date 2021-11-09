@@ -2,8 +2,6 @@ part of 'movie_list_bloc.dart';
 
 abstract class MovieListState {
   const MovieListState();
-
-  List<Object> get props => [];
 }
 
 class MovieListLoading extends MovieListState {
