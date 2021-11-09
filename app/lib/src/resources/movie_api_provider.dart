@@ -1,36 +1,22 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 
-class MovieApiProvider {
-  http.Client client = http.Client();
+import 'network_provider.dart';
+
+class MovieApiProvider extends NetworkProvider {
   final _apiKey = '802b2c4b88ea1183e50e6b285a27696e';
 
   Future<Object> fetchMovieList(String type) async {
-    try {
-      var url = Uri.parse("https://flutter-mymovie-api.herokuapp.com/movies");
-      final response = await client.get(url);
-      if (response.statusCode == 200) {
-        final results = json.decode(response.body);
-        return (results["data"]);
-      } else {
-        print("Error");
-        throw Exception('Failed to load post');
-      }
-    } catch (error) {
-      throw Exception('Failed to load post');
+    var url = NewRequest("https://flutter-mymovie-api.herokuapp.com/movies");
+    final response = await MakeRequest(url);
+    if (GetStatusCode() == 200) {
+      final results = json.decode(response);
+      return (results["data"]);
     }
+    return ({});
   }
 
   Future<Object> fetchMovieDetails(String id) async {
-    //TODO
-    var url = Uri.parse("http://api.themoviedb.org/3/movie/?api_key=$_apiKey");
-    final response = await client.get(url);
-    if (response.statusCode == 200) {
-      final results = json.decode(response.body);
-      return (results["results"]);
-    } else {
-      throw Exception('Failed to load post');
-    }
+    return ("null");
   }
 }

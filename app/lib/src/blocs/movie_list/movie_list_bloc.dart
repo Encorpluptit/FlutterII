@@ -32,8 +32,8 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
         _movies.add(Movie(movies[i]));
       }
       yield MovieListLoadedSuccess(_movies);
-    } catch (_) {
-      yield MovieListLoadedFailure();
+    } on Exception catch (error) {
+      yield MovieListLoadedFailure(error.toString());
     }
   }
 
