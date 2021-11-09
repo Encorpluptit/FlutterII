@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/src/blocs/movie_details/movie_details_bloc.dart';
 import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
-import 'package:movieapp/src/ui/movie_list_screen.dart';
+import 'package:movieapp/src/blocs/routes/routes_bloc.dart';
 import 'package:movieapp/src/ui/routes/main_routes.dart';
 
 void main() {
@@ -12,6 +12,9 @@ void main() {
     }),
     BlocProvider(create: (context) {
       return MovieDetailsBloc()..add(MovieDetailsLoadEvent());
+    }),
+    BlocProvider(create: (context) {
+      return RoutesBloc()..add(RoutesRedirectEvent(NavigationRoutes[0].label));
     }),
   ], child: const MyApp()));
 }

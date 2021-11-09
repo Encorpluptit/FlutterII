@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/src/blocs/movie_details/movie_details_bloc.dart';
 import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
-import 'package:movieapp/src/ui/widgets/home_drawer.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final String id;
@@ -23,7 +22,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         child: BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
             builder: (context, state) {
           //TODO
-          return (Container());
+          return (Text("Movie details ${widget.id}"));
         }),
       ),
     );

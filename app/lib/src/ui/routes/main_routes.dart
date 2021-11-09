@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movieapp/src/blocs/routes/routes_bloc.dart';
 
 import '../movie_list_screen.dart';
+
+class NavigationRouteInterface {
+  final Icon icon;
+  final String label;
+  final Widget widget;
+  const NavigationRouteInterface(this.icon, this.label, this.widget);
+}
+
+const List<NavigationRouteInterface> NavigationRoutes = [
+  NavigationRouteInterface(Icon(Icons.home), "Home", MovieListScreen()),
+  NavigationRouteInterface(Icon(Icons.home), "Home 2", MovieListScreen()),
+];
 
 class MainRoutes extends StatefulWidget {
   const MainRoutes({Key? key}) : super(key: key);
@@ -18,35 +32,28 @@ class HomeMainRouteState extends State<MainRoutes> {
   }
 
   void _onItemTapped(int index) {
+    BlocProvider.of<RoutesBloc>(context)
+        .add(RoutesRedirectEvent(NavigationRoutes[index].label));
     setState(() {
       _selectedIndex = index;
     });
   }
-
-  static final List<Widget> _widgetOptions = <Widget>[
-    const MovieListScreen(),
-    const MovieListScreen(),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-          ],
+          items: NavigationRoutes.map<BottomNavigationBarItem>((route) {
+            return (BottomNavigationBarItem(
+              icon: route.icon,
+              label: route.label,
+            ));
+          }).toList(),
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.blue,
           onTap: _onItemTapped,
         ),
-        body: Center(child: _widgetOptions.elementAt(_selectedIndex)));
+        body: Center(child: NavigationRoutes.elementAt(_selectedIndex).widget));
   }
 }
