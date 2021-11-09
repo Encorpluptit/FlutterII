@@ -5,9 +5,9 @@ class BlocControllerState<_State> {
   StreamSink<_State> get input => _controller.sink;
   Stream<_State> get output => _controller.stream;
 
-  late _State lastState;
+  _State lastState;
 
-  BlocControllerState();
+  BlocControllerState(this.lastState);
 }
 
 abstract class Bloc<_State, _Event> extends BlocControllerState<_State> {
@@ -24,7 +24,7 @@ abstract class Bloc<_State, _Event> extends BlocControllerState<_State> {
     input.add(st);
   }
 
-  Bloc() {
+  Bloc(_State st) : super(st) {
     eventController.stream.listen(mapEventToState);
   }
 

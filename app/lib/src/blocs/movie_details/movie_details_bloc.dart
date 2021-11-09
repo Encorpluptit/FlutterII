@@ -9,7 +9,7 @@ part 'movie_details_state.dart';
 
 class MovieDetailsBloc extends Bloc<MovieDetailsState, MovieDetailsEvent> {
   final Repository repository = Repository();
-  MovieDetailsBloc();
+  MovieDetailsBloc() : super(MovieDetailsLoading());
 
   @override
   Future<void> mapEventToState(MovieDetailsEvent event) async {

@@ -13,7 +13,7 @@ part 'movie_list_state.dart';
 class MovieListBloc extends Bloc<MovieListState, MovieListEvent> {
   final Repository repository = Repository();
 
-  MovieListBloc();
+  MovieListBloc() : super(MovieListLoading());
 
   @override
   Future<void> mapEventToState(Object event) async {

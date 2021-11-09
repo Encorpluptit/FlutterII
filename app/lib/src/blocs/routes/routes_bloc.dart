@@ -7,7 +7,7 @@ part 'routes_bloc_event.dart';
 part 'routes_state.dart';
 
 class RoutesBloc extends Bloc<RoutesState, RoutesEvent> {
-  RoutesBloc();
+  RoutesBloc() : super(RoutesWaiting());
 
   @override
   Future<void> mapEventToState(Object event) async {

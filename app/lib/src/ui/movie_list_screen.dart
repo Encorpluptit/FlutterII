@@ -50,14 +50,15 @@ class _MovieListScreenState extends State<MovieListScreen> {
                     builder: (context) => MovieDetailsScreen(id: state.id)));
           }
         },
-        shouldBuild: (state) {
-          return (true);
-        },
-        child: StreamBuilder<MovieListState>(
-            stream: bloc.output,
-            builder: (context, _state) {
-              print(_state.data);
-              var state = _state.data;
+        child: BlocStream<MovieListBloc, MovieListState>(
+            bloc: bloc,
+            shouldBuild: (MovieListState current) {
+              if (current is MovieListClickOnDetailsSuccess) {
+                return (false);
+              }
+              return (true);
+            },
+            builder: (context, state) {
               if (state is MovieListLoading) {
                 return (const Center(
                   child: CircularProgressIndicator(),
@@ -69,7 +70,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
                     },
                     child: MovieListView(movies: state.movies)));
               } else if (state is MovieListLoadedFailure) {
-                return (const MovieListView(movies: []));
+                return (Container());
               } else {
                 return (Container());
               }
