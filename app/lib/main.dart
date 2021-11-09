@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/bloc.dart';
+import 'package:movieapp/src/blocs/movie_details/movie_details_bloc.dart';
 import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
 import 'package:movieapp/src/blocs/routes/routes_bloc.dart';
 import 'package:movieapp/src/ui/routes/main_routes.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 
-void addBlocs(List<Bloc> blocs) {
-  Provider.blocs = blocs;
+class BlocInit {
+  Bloc bloc;
+  Object? initialEvent;
+
+  BlocInit(this.bloc, this.initialEvent);
+}
+
+void addBlocs(List<BlocInit> blocs) {
+  for (var element in blocs) {
+    Provider.addBloc(element.bloc, element.initialEvent);
+  }
 }
 
 void main() {
   addBlocs([
-    MovieListBloc(),
-    RoutesBloc(),
-  ]);
+    BlocInit(MovieListBloc(), MovieListLoadEvent()),
+    BlocInit(RoutesBloc(), null),
+    BlocInit(MovieDetailsBloc(), null),
+  ].toList());
   runApp(const MyApp());
 }
 

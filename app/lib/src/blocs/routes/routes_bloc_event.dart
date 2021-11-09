@@ -11,6 +11,4 @@ class RoutesRedirectEvent extends RoutesEvent {
   const RoutesRedirectEvent(this.page);
 }
 
-class RoutesWaitingEvent extends RoutesEvent {
-  const RoutesWaitingEvent();
-}
+class RoutesWaitingEvent extends RoutesEvent {}

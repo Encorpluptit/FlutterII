@@ -7,6 +7,13 @@ class BlocProvider {
 
   BlocProvider();
 
+  void addBloc(Bloc bloc, Object? initialEvent) {
+    if (initialEvent != null) {
+      bloc.dispatch(initialEvent);
+    }
+    blocs.add(bloc);
+  }
+
   Bloc getBloc<Element>() {
     for (Bloc element in blocs) {
       if (element is Element) {

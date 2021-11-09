@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/blocs/routes/routes_bloc.dart';
 import 'package:movieapp/src/ui/bloc_builder.dart';
+import 'package:movieapp/src/ui/routes/main_routes.dart';
 
 class HomeAppBar extends StatefulWidget with PreferredSizeWidget {
   const HomeAppBar({Key? key}) : super(key: key);
@@ -14,12 +14,13 @@ class HomeAppBar extends StatefulWidget with PreferredSizeWidget {
 }
 
 class _HomeAppBarState extends State<HomeAppBar> {
-  String title = "Home";
+  String title = "MyMovie";
   RoutesBloc bloc = Provider.getBloc<RoutesBloc>() as RoutesBloc;
 
   @override
   void initState() {
     super.initState();
+    bloc.dispatch(RoutesRedirectEvent(NavigationRoutes[0].label));
   }
 
   @override
