@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/bloc.dart';
 import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
+import 'package:movieapp/src/blocs/routes/routes_bloc.dart';
 import 'package:movieapp/src/ui/routes/main_routes.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 
@@ -11,6 +12,7 @@ void addBlocs(List<Bloc> blocs) {
 void main() {
   addBlocs([
     MovieListBloc(),
+    RoutesBloc(),
   ]);
   runApp(const MyApp());
 }

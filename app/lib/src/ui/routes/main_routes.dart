@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/blocs/routes/routes_bloc.dart';
 
 import '../movie_list_screen.dart';
@@ -25,6 +26,7 @@ class MainRoutes extends StatefulWidget {
 
 class HomeMainRouteState extends State<MainRoutes> {
   int _selectedIndex = 0;
+  RoutesBloc bloc = Provider.getBloc<RoutesBloc>() as RoutesBloc;
 
   @override
   void initState() {
@@ -32,10 +34,7 @@ class HomeMainRouteState extends State<MainRoutes> {
   }
 
   void _onItemTapped(int index) {
-    /*
-    BlocProvider.of<RoutesBloc>(context)
-        .add(RoutesRedirectEvent(NavigationRoutes[index].label));
-        */
+    bloc.dispatch(RoutesRedirectEvent(NavigationRoutes[index].label));
     setState(() {
       _selectedIndex = index;
     });

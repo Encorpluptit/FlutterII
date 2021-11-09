@@ -1,29 +1,29 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
+import 'package:movieapp/src/blocs/bloc.dart';
 import 'package:movieapp/src/models/movie.dart';
 
 part 'routes_bloc_event.dart';
 part 'routes_state.dart';
 
-class RoutesBloc extends Bloc<RoutesEvent, RoutesState> {
-  RoutesBloc() : super(RoutesWaiting());
+class RoutesBloc extends Bloc<RoutesState, RoutesEvent> {
+  RoutesBloc();
 
   @override
-  Stream<RoutesState> mapEventToState(RoutesEvent event) async* {
+  Future<void> mapEventToState(Object event) async {
     if (event is RoutesRedirectEvent) {
-      yield* _RoutesRedirect(event);
+      setState(await _RoutesRedirect(event));
     }
     if (event is RoutesWaitingEvent) {
-      yield* _RoutesWaiting();
+      setState(await _RoutesWaiting());
     }
   }
 
-  Stream<RoutesState> _RoutesRedirect(RoutesRedirectEvent event) async* {
-    yield RoutesRedirect(event.page);
+  Future<RoutesState> _RoutesRedirect(RoutesRedirectEvent event) async {
+    return RoutesRedirect(event.page);
   }
 
-  Stream<RoutesState> _RoutesWaiting() async* {
-    yield RoutesWaiting();
+  Future<RoutesState> _RoutesWaiting() async {
+    return RoutesWaiting();
   }
 }
