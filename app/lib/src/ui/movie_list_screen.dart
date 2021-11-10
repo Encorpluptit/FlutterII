@@ -28,6 +28,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
       appBar: const HomeAppBar(),
       body: BlocBuilder<MovieListBloc, MovieListState>(
         bloc: bloc,
+        shouldBuild: (_) => true,
         listener: (BuildContext context, MovieListState state) {
           if (state is MovieListLoadedFailure) {
             var snackBar = SnackBar(
@@ -53,6 +54,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
         child: BlocStream<MovieListBloc, MovieListState>(
             bloc: bloc,
             shouldBuild: (MovieListState current) {
+              print(current);
               if (current is MovieListClickOnDetailsSuccess) {
                 return (false);
               }
