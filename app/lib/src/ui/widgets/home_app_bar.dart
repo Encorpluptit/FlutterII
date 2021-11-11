@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/blocs/routes/routes_bloc.dart';
-import 'package:movieapp/src/ui/bloc_builder.dart';
+import 'package:movieapp/src/ui/bloc/bloc_builder.dart';
 import 'package:movieapp/src/ui/routes/main_routes.dart';
 
 class HomeAppBar extends StatefulWidget with PreferredSizeWidget {
@@ -25,7 +25,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RoutesBloc, RoutesState>(
+    return BlocListener<RoutesBloc, RoutesState>(
       bloc: bloc,
       listener: (context, state) {
         if (state is RoutesRedirect) {

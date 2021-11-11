@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
-import 'package:movieapp/src/ui/bloc_builder.dart';
-import 'package:movieapp/src/ui/movie_details_screen.dart';
+import 'package:movieapp/src/ui/bloc/bloc_builder.dart';
+import 'package:movieapp/src/ui/screens/movie_details_screen.dart';
 import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
 import 'package:movieapp/src/ui/widgets/movie_list.dart';
 
@@ -26,9 +26,8 @@ class _MovieListScreenState extends State<MovieListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const HomeAppBar(),
-      body: BlocBuilder<MovieListBloc, MovieListState>(
+      body: BlocListener<MovieListBloc, MovieListState>(
         bloc: bloc,
-        shouldBuild: (_) => true,
         listener: (BuildContext context, MovieListState state) {
           if (state is MovieListLoadedFailure) {
             var snackBar = SnackBar(
@@ -51,10 +50,9 @@ class _MovieListScreenState extends State<MovieListScreen> {
                     builder: (context) => MovieDetailsScreen(id: state.id)));
           }
         },
-        child: BlocStream<MovieListBloc, MovieListState>(
+        child: BlocBuilder<MovieListBloc, MovieListState>(
             bloc: bloc,
             shouldBuild: (MovieListState current) {
-              print(current);
               if (current is MovieListClickOnDetailsSuccess) {
                 return (false);
               }
