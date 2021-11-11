@@ -10,8 +10,14 @@ class GenreListLoading extends GenreListState {
 
 class GenreListLoadedSuccess extends GenreListState {
   final List<Genre> genres;
+  final List<Genre> filteredGenres;
+  final List<Movie> movies;
 
-  const GenreListLoadedSuccess([this.genres = const []]);
+  const GenreListLoadedSuccess([
+    this.genres = const [],
+    this.filteredGenres = const [],
+    this.movies = const [],
+  ]);
 }
 
 class GenreListLoadedFailure extends GenreListState {

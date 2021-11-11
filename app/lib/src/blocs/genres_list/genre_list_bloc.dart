@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:movieapp/src/blocs/bloc.dart';
 import 'package:movieapp/src/models/genre.dart';
+import 'package:movieapp/src/models/movie.dart';
 import 'package:movieapp/src/resources/repository.dart';
 
 part 'genre_list_event.dart';
@@ -34,6 +35,7 @@ class GenreListBloc extends Bloc<GenreListState, GenreListEvent> {
       for (int i = 0; i < genres.length; i++) {
         _genres.add(Genre(genres[i]));
       }
+      debugPrint(_genres.map((v) => '${v.id} -> ${v.name}').toString());
       return GenreListLoadedSuccess(_genres);
     } on Exception catch (error) {
       return GenreListLoadedFailure(error.toString());

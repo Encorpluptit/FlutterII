@@ -1,8 +1,7 @@
-import 'package:intl/intl.dart';
 import 'package:movieapp/src/models/base_model.dart';
 
 class Genre extends BaseModel {
-  String _id = "";
+  int _id = 0;
   String _name = "";
 
   Genre(result) {
@@ -10,6 +9,6 @@ class Genre extends BaseModel {
     _name = result['name'];
   }
 
-  String get id => _id;
+  int get id => _id;
   String get name => _name;
 }

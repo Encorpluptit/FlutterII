@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
+import 'package:movieapp/src/blocs/genres_list/genre_list_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/ui/bloc_builder.dart';
-import 'package:movieapp/src/ui/movie_details_screen.dart';
+import 'package:movieapp/src/ui/widgets/genres/filtered_movie_list.dart';
 import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
-import 'package:movieapp/src/ui/widgets/movie_list.dart';
 
 class MovieGenreScreen extends StatefulWidget {
   const MovieGenreScreen({Key? key}) : super(key: key);
@@ -16,10 +15,11 @@ class MovieGenreScreen extends StatefulWidget {
 }
 
 class _MovieGenreScreenState extends State<MovieGenreScreen> {
-  MovieListBloc bloc = Provider.getBloc<MovieListBloc>() as MovieListBloc;
+  GenreListBloc bloc = Provider.getBloc<GenreListBloc>() as GenreListBloc;
 
   @override
   void initState() {
+    bloc.dispatch(GenreListLoadEvent());
     super.initState();
   }
 
@@ -27,11 +27,11 @@ class _MovieGenreScreenState extends State<MovieGenreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const HomeAppBar(),
-      body: BlocBuilder<MovieListBloc, MovieListState>(
+      body: BlocBuilder<GenreListBloc, GenreListState>(
         bloc: bloc,
         shouldBuild: (_) => true,
-        listener: (BuildContext context, MovieListState state) {
-          if (state is MovieListLoadedFailure) {
+        listener: (BuildContext context, GenreListState state) {
+          if (state is GenreListLoadedFailure) {
             var snackBar = SnackBar(
               duration: const Duration(minutes: 5),
               content: Text(state.cause),
@@ -39,40 +39,42 @@ class _MovieGenreScreenState extends State<MovieGenreScreen> {
               action: SnackBarAction(
                 label: 'Retry',
                 onPressed: () {
-                  bloc.dispatch(MovieListLoadEvent());
+                  bloc.dispatch(GenreListLoadEvent());
                 },
               ),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
-          if (state is MovieListClickOnDetailsSuccess) {
-            Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    builder: (context) => MovieDetailsScreen(id: state.id)));
-          }
+          // if (state is GenreListClickOnDetailsSuccess) {
+          //   Navigator.push(
+          //       context,
+          //       CupertinoPageRoute(
+          //           builder: (context) => MovieDetailsScreen(id: state.id)));
+          // }
         },
-        child: BlocStream<MovieListBloc, MovieListState>(
+        child: BlocStream<GenreListBloc, GenreListState>(
             bloc: bloc,
-            shouldBuild: (MovieListState current) {
-              debugPrint(current.toString());
-              if (current is MovieListClickOnDetailsSuccess) {
-                return (false);
-              }
+            shouldBuild: (GenreListState current) {
+              // if (current is GenreListClickOnDetailsSuccess) {
+              //   return (false);
+              // }
               return (true);
             },
             builder: (context, state) {
-              if (state is MovieListLoading) {
+              if (state is GenreListLoading) {
                 return (const Center(
                   child: CircularProgressIndicator(),
                 ));
-              } else if (state is MovieListLoadedSuccess) {
+              } else if (state is GenreListLoadedSuccess) {
                 return (RefreshIndicator(
                     onRefresh: () async {
-                      bloc.dispatch(MovieListLoadEvent());
+                      bloc.dispatch(GenreListLoadEvent());
                     },
-                    child: MovieListView(movies: state.movies)));
-              } else if (state is MovieListLoadedFailure) {
+                    child: GenreFilteredMovieListView(
+                      movies: state.movies,
+                      filteredGenresLength: state.filteredGenres.length,
+                    )));
+              } else if (state is GenreListLoadedFailure) {
                 return (Container());
               } else {
                 return (Container());
