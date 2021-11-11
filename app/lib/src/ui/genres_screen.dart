@@ -8,14 +8,14 @@ import 'package:movieapp/src/ui/movie_details_screen.dart';
 import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
 import 'package:movieapp/src/ui/widgets/movie_list.dart';
 
-class MovieListScreen extends StatefulWidget {
-  const MovieListScreen({Key? key}) : super(key: key);
+class MovieGenreScreen extends StatefulWidget {
+  const MovieGenreScreen({Key? key}) : super(key: key);
 
   @override
-  _MovieListScreenState createState() => _MovieListScreenState();
+  _MovieGenreScreenState createState() => _MovieGenreScreenState();
 }
 
-class _MovieListScreenState extends State<MovieListScreen> {
+class _MovieGenreScreenState extends State<MovieGenreScreen> {
   MovieListBloc bloc = Provider.getBloc<MovieListBloc>() as MovieListBloc;
 
   @override

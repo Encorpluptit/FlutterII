@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/bloc.dart';
+import 'package:movieapp/src/blocs/genres_list/genre_list_bloc.dart';
 import 'package:movieapp/src/blocs/movie_details/movie_details_bloc.dart';
 import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
+import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/blocs/routes/routes_bloc.dart';
 import 'package:movieapp/src/ui/routes/main_routes.dart';
-import 'package:movieapp/src/blocs/provider.dart';
 
 class BlocInit {
   Bloc bloc;
@@ -24,6 +25,7 @@ void main() {
     BlocInit(MovieListBloc(), MovieListLoadEvent()),
     BlocInit(RoutesBloc(), null),
     BlocInit(MovieDetailsBloc(), null),
+    BlocInit(GenreListBloc(), null),
   ].toList());
   runApp(const MyApp());
 }
