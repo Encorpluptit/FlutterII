@@ -1,6 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import { Movie } from '../database/schema/movies';
+import {Genre} from '../database/schema/genres';
 
 const router = express.Router();
 
@@ -51,9 +52,35 @@ router.get('/fill_db', async (req: express.Request, res: express.Response) => {
         movies_in_db.push(movie);
     }
 
+    try {
+        response = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
+        response = response.data;
+        console.log(response);
+    } catch (err: unknown) {
+        res.status(500).send({
+            'success': false,
+            'data': 'Internal server error',
+        });
+        return;
+    }
+    const genres = response.genres;
+    const genres_in_db = [];
+
+    for (let i = 0; i !== genres.length; i++) {
+        const imported_genre = genres[i];
+        const genre = new Genre({
+            id: imported_genre.id,
+            name: imported_genre.name,
+        });
+
+        genre.save();
+        genres_in_db.push(genre);
+    }
+
+
     res.send({
         'success': true,
-        'data': `Imported ${movies_in_db.length} movies`,
+        'data': `Imported ${movies_in_db.length} movies and ${genres_in_db.length} genres`,
     });
 });
 
