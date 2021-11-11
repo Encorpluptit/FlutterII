@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movieapp/src/blocs/movie_details/movie_details_bloc.dart';
 import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/ui/bloc_builder.dart';
@@ -54,7 +55,6 @@ class _MovieListScreenState extends State<MovieListScreen> {
         child: BlocStream<MovieListBloc, MovieListState>(
             bloc: bloc,
             shouldBuild: (MovieListState current) {
-              print(current);
               if (current is MovieListClickOnDetailsSuccess) {
                 return (false);
               }

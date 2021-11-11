@@ -6,7 +6,6 @@ class Repository {
 
   Future<Object> fetchMovieList(String type) =>
       moviesApiProvider.fetchMovieList(type);
-  //TODO
   Future<Object> fetchMovieDetails(String id) =>
-      moviesApiProvider.fetchMovieList(id);
+      moviesApiProvider.fetchMovieDetails(id);
 }

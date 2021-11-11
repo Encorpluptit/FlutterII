@@ -3,6 +3,7 @@ import 'package:movieapp/src/blocs/movie_details/movie_details_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/ui/bloc_builder.dart';
 import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
+import 'package:movieapp/src/ui/widgets/movie_details.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final String id;
@@ -16,15 +17,56 @@ class MovieDetailsScreen extends StatefulWidget {
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   MovieDetailsBloc bloc =
       Provider.getBloc<MovieDetailsBloc>() as MovieDetailsBloc;
+  @override
+  void initState() {
+    bloc.dispatch(MovieDetailsLoadEvent(widget.id));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const HomeAppBar(),
       body: BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
-          bloc: bloc,
-          listener: (context, state) {},
-          child: Text("Movie details ${widget.id}")),
+        bloc: bloc,
+        shouldBuild: (_) => true,
+        listener: (BuildContext context, MovieDetailsState state) {
+          if (state is MovieDetailsLoadedFailure) {
+            var snackBar = SnackBar(
+              duration: const Duration(minutes: 5),
+              content: Text(state.cause),
+              backgroundColor: Colors.red,
+              action: SnackBarAction(
+                label: 'Retry',
+                onPressed: () {
+                  bloc.dispatch(MovieDetailsLoadEvent(widget.id));
+                },
+              ),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        },
+        child: BlocStream<MovieDetailsBloc, MovieDetailsState>(
+            bloc: bloc,
+            shouldBuild: (_) => true,
+            builder: (context, state) {
+              if (state is MovieDetailsLoading) {
+                return (const Center(
+                  child: CircularProgressIndicator(),
+                ));
+              } else if (state is MovieDetailsLoadedSuccess) {
+                return (RefreshIndicator(
+                    onRefresh: () async {
+                      bloc.dispatch(MovieDetailsLoadEvent(widget.id));
+                    },
+                    child: MovieDetailsView(movie: state.movie)));
+              } else if (state is MovieDetailsLoadedFailure) {
+                return (Container());
+              } else {
+                return (Container());
+              }
+            }),
+      ),
     );
   }
 }
