@@ -107,11 +107,13 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
           child: CachedNetworkImage(
             fit: BoxFit.cover,
             imageUrl: imageUrl,
-            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                Container(
-                    margin: const EdgeInsets.only(top: 200, bottom: 150),
-                    child: CircularProgressIndicator(
-                        value: downloadProgress.progress, color: Colors.blue)),
+            placeholder: (context, url) => const Center(
+              child: SizedBox(
+                width: 40.0,
+                height: 40.0,
+                child: CircularProgressIndicator(),
+              ),
+            ),
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ));
 
