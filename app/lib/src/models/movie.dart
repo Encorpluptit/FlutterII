@@ -1,7 +1,4 @@
-import 'package:intl/intl.dart';
-import 'package:movieapp/src/models/base_model.dart';
-
-class Movie extends BaseModel {
+class Movie {
   String _id = "";
   String _title = "";
   String _synopsis = "";

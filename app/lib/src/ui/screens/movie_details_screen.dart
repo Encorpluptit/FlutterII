@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/movie_details/movie_details_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
-import 'package:movieapp/src/ui/bloc_builder.dart';
+import 'package:movieapp/src/ui/bloc/bloc_builder.dart';
 import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
 import 'package:movieapp/src/ui/widgets/movie_details.dart';
 
@@ -27,7 +27,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const HomeAppBar(),
-      body: BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
+      body: BlocListener<MovieDetailsBloc, MovieDetailsState>(
         bloc: bloc,
         shouldBuild: (_) => true,
         listener: (BuildContext context, MovieDetailsState state) {
@@ -46,7 +46,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         },
-        child: BlocStream<MovieDetailsBloc, MovieDetailsState>(
+        child: BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
             bloc: bloc,
             shouldBuild: (_) => true,
             builder: (context, state) {

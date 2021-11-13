@@ -4,10 +4,11 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import movies from './routes/movies';
 import debug from './routes/debug';
+import genres from './routes/genres';
 
 const app = express();
 
-const mongo_host = process.env.NODE_ENV === 'production' ? '+srv://dbUser:Jf1HNOIbLraplYzM@mymovie-api.6y4dx.mongodb.net' : '://localhost:27017';
+const mongo_host = process.env.NODE_ENV === 'production' ? '+srv://dbUser:Jf1HNOIbLraplYzM@mymovie-api.6y4dx.mongodb.net' : '://mymovie-tier:27017';
 const mongo_uri = `mongodb${mongo_host}/myMovie?retryWrites=true&w=majority`;
 
 mongoose.connect(mongo_uri, function (err) {
@@ -24,6 +25,7 @@ app.get('/health', (req, res) => {
     res.status(200).send('OK');
 });
 app.use('/movies', movies);
+app.use('/genres', genres);
 app.use('/debug', debug);
 
 const httpServer = http.createServer(app);
