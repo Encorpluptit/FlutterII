@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/account/account_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/ui/bloc/bloc_builder.dart';
-import 'package:movieapp/src/ui/screens/movie_details_screen.dart';
 import 'package:movieapp/src/ui/widgets/account.dart';
 import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
 // import 'package:movieapp/src/ui/widgets/account.dart';
@@ -60,7 +59,8 @@ class _AccountScreenState extends State<AccountScreen> {
         child: BlocBuilder<AccountBloc, AccountState>(
             bloc: bloc,
             shouldBuild: (AccountState current) {
-              if (current is AccountClickOnLogIn) {
+              if (current is AccountClickOnLogIn ||
+                  current is AccountClickOnRegister) {
                 return (false);
               }
               return (true);
