@@ -6,7 +6,6 @@ import 'package:movieapp/src/ui/bloc/bloc_builder.dart';
 import 'package:movieapp/src/ui/screens/login_screen.dart';
 import 'package:movieapp/src/ui/screens/register_screen.dart';
 import 'package:movieapp/src/ui/widgets/account.dart';
-import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
 // import 'package:movieapp/src/ui/widgets/account.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -27,7 +26,10 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const HomeAppBar(),
+      appBar: AppBar(
+        centerTitle: false,
+        title: const Text('MyMovie - Account'),
+      ),
       body: BlocListener<AccountBloc, AccountState>(
         bloc: bloc,
         listener: (BuildContext context, AccountState state) {
