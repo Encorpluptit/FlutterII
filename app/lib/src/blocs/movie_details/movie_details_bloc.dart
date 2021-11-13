@@ -12,20 +12,34 @@ class MovieDetailsBloc extends Bloc<MovieDetailsState, MovieDetailsEvent> {
   MovieDetailsBloc() : super(MovieDetailsLoading());
 
   @override
-  Future<void> mapEventToState(MovieDetailsEvent event) async {
-    if (event is MovieDetailsLoadEvent || event is MovieDetailsRefreshEvent) {
-      setState(await _MovieDetailsLoad());
+  Future<void> mapEventToState(Object event) async {
+    if (event is MovieDetailsLoadEvent) {
+      setState(await _MovieDetailsLoad(event));
+    }
+    if (event is MovieDetailsRefreshEvent) {
+      setState(await _MovieDetailsRefresh(event));
     }
   }
 
-  Future<MovieDetailsState> _MovieDetailsLoad() async {
+  Future<MovieDetailsState> _MovieDetailsLoad(
+      MovieDetailsLoadEvent event) async {
     try {
-      //TODO
-      final movies = await repository.fetchMovieDetails("state") as dynamic;
-      //TODO
-      return MovieDetailsLoadedSuccess(movies);
-    } catch (_) {
-      return MovieDetailsLoadedFailure();
+      final movie = await repository.fetchMovieDetails(event.id) as dynamic;
+      final _movie = Movie(movie);
+      return MovieDetailsLoadedSuccess(_movie);
+    } on Exception catch (error) {
+      return MovieDetailsLoadedFailure(error.toString());
+    }
+  }
+
+  Future<MovieDetailsState> _MovieDetailsRefresh(
+      MovieDetailsRefreshEvent event) async {
+    try {
+      final movie = await repository.fetchMovieDetails(event.id) as dynamic;
+      final _movie = Movie(movie);
+      return MovieDetailsLoadedSuccess(_movie);
+    } on Exception catch (error) {
+      return MovieDetailsLoadedFailure(error.toString());
     }
   }
 }

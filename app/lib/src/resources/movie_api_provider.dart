@@ -17,6 +17,13 @@ class MovieApiProvider extends NetworkProvider {
   }
 
   Future<Object> fetchMovieDetails(String id) async {
-    return ("null");
+    var url =
+        NewRequest("https://flutter-mymovie-api.herokuapp.com/movies/$id");
+    final response = await MakeRequest(url);
+    if (GetStatusCode() == 200) {
+      final results = json.decode(response);
+      return (results["data"]);
+    }
+    return ({});
   }
 }
