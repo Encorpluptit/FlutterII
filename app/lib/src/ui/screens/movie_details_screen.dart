@@ -26,7 +26,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const HomeAppBar(),
+      appBar: AppBar(
+        centerTitle: false,
+        title: const Text('MyMovie - Details'),
+      ),
       body: BlocListener<MovieDetailsBloc, MovieDetailsState>(
         bloc: bloc,
         shouldBuild: (_) => true,
