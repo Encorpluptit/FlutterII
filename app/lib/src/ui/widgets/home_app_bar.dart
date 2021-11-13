@@ -20,7 +20,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
   @override
   void initState() {
     super.initState();
-    bloc.dispatch(RoutesRedirectEvent(NavigationRoutes[0].label));
+    bloc.dispatch(RoutesRedirectEvent(navigationRoutes[0].label));
   }
 
   @override
