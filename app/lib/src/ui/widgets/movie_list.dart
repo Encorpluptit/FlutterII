@@ -5,8 +5,10 @@ import 'movie_item.dart';
 
 class MovieListView extends StatefulWidget {
   final List<Movie> movies;
+  final SearchFunction onSearch;
 
-  const MovieListView({Key? key, required this.movies}) : super(key: key);
+  const MovieListView({Key? key, required this.movies, required this.onSearch})
+      : super(key: key);
 
   @override
   State createState() => _MovieListViewState();
@@ -35,6 +37,7 @@ class _MovieListViewState extends State<MovieListView> {
         children: widget.movies.map<Widget>((movie) {
           return MovieItem(
             movie: movie,
+            onSearch: widget.onSearch,
           );
         }).toList(),
       ),

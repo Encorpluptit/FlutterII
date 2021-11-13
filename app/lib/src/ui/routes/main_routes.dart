@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/blocs/routes/routes_bloc.dart';
+import 'package:movieapp/src/ui/screens/movie_search_screen.dart';
 
 import '../screens/movie_list_screen.dart';
 
@@ -13,7 +14,7 @@ class NavigationRouteInterface {
 
 const List<NavigationRouteInterface> NavigationRoutes = [
   NavigationRouteInterface(Icon(Icons.home), "Home", MovieListScreen()),
-  NavigationRouteInterface(Icon(Icons.home), "Search", MovieListScreen()),
+  NavigationRouteInterface(Icon(Icons.search), "Search", MovieSearchScreen()),
 ];
 
 class MainRoutes extends StatefulWidget {
