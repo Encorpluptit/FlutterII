@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/src/blocs/account/account_bloc.dart';
+import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/models/movie.dart';
 
 import 'movie_item.dart';
@@ -17,11 +19,29 @@ class _AccountViewState extends State<AccountView> {
   @override
   Widget build(BuildContext context) {
     if (!widget.loggedIn) {
-      return (const Scaffold(
+      return (Scaffold(
           body: Center(
-        child: Text(
-          "Welcome Guest",
-          style: TextStyle(fontSize: 20),
+        child: Column(
+          children: [
+            const Text(
+              "Welcome Guest",
+              style: TextStyle(fontSize: 20),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                Provider.getBloc<AccountBloc>()
+                    .dispatch(AccountClickOnLogInEvent());
+              },
+              child: const Text('Login'),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                Provider.getBloc<AccountBloc>()
+                    .dispatch(AccountClickOnRegisterEvent());
+              },
+              child: const Text('Register'),
+            ),
+          ],
         ),
       )));
     } else {

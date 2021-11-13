@@ -4,3 +4,7 @@ part of 'account_bloc.dart';
 abstract class AccountEvent {
   const AccountEvent();
 }
+
+class AccountClickOnLogInEvent extends AccountEvent {}
+
+class AccountClickOnRegisterEvent extends AccountEvent {}

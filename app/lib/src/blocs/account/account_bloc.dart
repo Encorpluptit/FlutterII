@@ -14,5 +14,12 @@ class AccountBloc extends Bloc<AccountState, AccountEvent> {
   AccountBloc() : super(AccountGuest());
 
   @override
-  Future<void> mapEventToState(Object event) async {}
+  Future<void> mapEventToState(Object event) async {
+    if (event is AccountClickOnLogInEvent) {
+      setState(AccountClickOnLogIn());
+    }
+    if (event is AccountClickOnRegisterEvent) {
+      setState(AccountClickOnRegister());
+    }
+  }
 }
