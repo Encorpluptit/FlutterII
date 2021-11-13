@@ -4,8 +4,8 @@ abstract class RegisterState {
   const RegisterState();
 }
 
-class RegisterLoggingIn extends RegisterState {
-  RegisterLoggingIn();
+class RegisterRegistering extends RegisterState {
+  RegisterRegistering();
 }
 
 class RegisterClickOnLogIn extends RegisterState {
@@ -14,12 +14,6 @@ class RegisterClickOnLogIn extends RegisterState {
 
 class RegisterClickOnRegister extends RegisterState {
   RegisterClickOnRegister();
-}
-
-class RegisterLoggedIn extends RegisterState {
-  final String username;
-
-  const RegisterLoggedIn(this.username);
 }
 
 class RegisterError extends RegisterState {

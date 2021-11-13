@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/src/blocs/login/login_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
+import 'package:movieapp/src/blocs/register/register_bloc.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+class RegisterView extends StatefulWidget {
+  const RegisterView({Key? key}) : super(key: key);
 
   @override
-  State createState() => _LoginViewState();
+  State createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -35,6 +35,28 @@ class _LoginViewState extends State<LoginView> {
               const SizedBox(height: 50),
               Column(
                 children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const <Widget>[
+                        Text(
+                          "Email",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextField(
+                            obscureText: false,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                fillColor: Color(0xfff3f3f4),
+                                filled: true))
+                      ],
+                    ),
+                  ),
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     child: Column(
@@ -83,8 +105,8 @@ class _LoginViewState extends State<LoginView> {
               ),
               InkWell(
                   onTap: () {
-                    Provider.getBloc<LoginBloc>()
-                        .dispatch(LoginClickOnLogInEvent());
+                    Provider.getBloc<RegisterBloc>()
+                        .dispatch(RegisterClickOnLogInEvent());
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -109,15 +131,15 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                     child: const Text(
-                      'Login',
+                      'Register',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   )),
               SizedBox(height: height * .055),
               InkWell(
                 onTap: () {
-                  Provider.getBloc<LoginBloc>()
-                      .dispatch(LoginClickOnRegisterEvent());
+                  Provider.getBloc<RegisterBloc>()
+                      .dispatch(RegisterClickOnLogInEvent());
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(vertical: 20),
@@ -127,7 +149,7 @@ class _LoginViewState extends State<LoginView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
                       Text(
-                        'Don\'t have an account ?',
+                        'Already have an account ?',
                         style: TextStyle(
                             fontSize: 13, fontWeight: FontWeight.w600),
                       ),
@@ -135,7 +157,7 @@ class _LoginViewState extends State<LoginView> {
                         width: 10,
                       ),
                       Text(
-                        'Register',
+                        'Login',
                         style: TextStyle(
                             color: Colors.blue,
                             fontSize: 13,
@@ -154,14 +176,14 @@ class _LoginViewState extends State<LoginView> {
     //     children: [
     //       OutlinedButton(
     //         onPressed: () {
-    //           Provider.getBloc<LoginBloc>().dispatch(LoginClickOnLogInEvent());
+    //           Provider.getBloc<RegisterBloc>().dispatch(RegisterClickOnLogInEvent());
     //         },
-    //         child: const Text('Login'),
+    //         child: const Text('Register'),
     //       ),
     //       OutlinedButton(
     //         onPressed: () {
-    //           Provider.getBloc<LoginBloc>()
-    //               .dispatch(LoginClickOnRegisterEvent());
+    //           Provider.getBloc<RegisterBloc>()
+    //               .dispatch(RegisterClickOnRegisterEvent());
     //         },
     //         child: const Text('Register'),
     //       ),

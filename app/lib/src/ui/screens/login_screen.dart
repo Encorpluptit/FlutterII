@@ -4,9 +4,7 @@ import 'package:movieapp/src/blocs/login/login_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/ui/bloc/bloc_builder.dart';
 import 'package:movieapp/src/ui/screens/register_screen.dart';
-import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
 import 'package:movieapp/src/ui/widgets/login.dart';
-// import 'package:movieapp/src/ui/widgets/account.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -26,7 +24,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const HomeAppBar(),
+      appBar: AppBar(
+        centerTitle: false,
+        title: const Text('MyMovie - Login'),
+      ),
       body: BlocListener<LoginBloc, LoginState>(
         bloc: bloc,
         listener: (BuildContext context, LoginState state) {

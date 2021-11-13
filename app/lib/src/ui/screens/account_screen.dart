@@ -49,7 +49,6 @@ class _AccountScreenState extends State<AccountScreen> {
             });
           }
           if (state is AccountClickOnRegister) {
-            // ignore: avoid_print
             Navigator.push(
                 context,
                 CupertinoPageRoute(

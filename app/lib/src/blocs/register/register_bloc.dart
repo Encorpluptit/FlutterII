@@ -11,12 +11,15 @@ part 'register_state.dart';
 class RegisterBloc extends Bloc<RegisterState, RegisterEvent> {
   final Repository repository = Repository();
 
-  RegisterBloc() : super(RegisterLoggingIn());
+  RegisterBloc() : super(RegisterRegistering());
 
   @override
   Future<void> mapEventToState(Object event) async {
     if (event is RegisterClickOnLogInEvent) {
       setState(RegisterClickOnLogIn());
+    }
+    if (event is RegisterClickOnLoginDoneEvent) {
+      setState(RegisterRegistering());
     }
     if (event is RegisterClickOnRegisterEvent) {
       setState(RegisterClickOnRegister());
