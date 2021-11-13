@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/account/account_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/ui/bloc/bloc_builder.dart';
+import 'package:movieapp/src/ui/screens/login_screen.dart';
+import 'package:movieapp/src/ui/screens/register_screen.dart';
 import 'package:movieapp/src/ui/widgets/account.dart';
 import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
 // import 'package:movieapp/src/ui/widgets/account.dart';
@@ -40,20 +42,16 @@ class _AccountScreenState extends State<AccountScreen> {
           if (state is AccountClickOnLogIn) {
             // ignore: avoid_print
             print('Click on login');
-            //TODO
-            // Navigator.push(
-            //     context,
-            //     CupertinoPageRoute(
-            //         builder: (context) => LoginScreen()));
+            Navigator.push(context,
+                CupertinoPageRoute(builder: (context) => const LoginScreen()));
           }
           if (state is AccountClickOnRegister) {
             // ignore: avoid_print
             print('Click on register');
-            //TODO
-            // Navigator.push(
-            //     context,
-            //     CupertinoPageRoute(
-            //         builder: (context) => RegisterScreen()));
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => const RegisterScreen()));
           }
         },
         child: BlocBuilder<AccountBloc, AccountState>(

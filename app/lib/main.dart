@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/account/account_bloc.dart';
 import 'package:movieapp/src/blocs/bloc.dart';
+import 'package:movieapp/src/blocs/login/login_bloc.dart';
 import 'package:movieapp/src/blocs/movie_details/movie_details_bloc.dart';
 import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
+import 'package:movieapp/src/blocs/register/register_bloc.dart';
 import 'package:movieapp/src/blocs/routes/routes_bloc.dart';
 import 'package:movieapp/src/ui/routes/main_routes.dart';
 import 'package:movieapp/src/blocs/provider.dart';
@@ -26,6 +28,8 @@ void main() {
     BlocInit(RoutesBloc(), null),
     BlocInit(MovieDetailsBloc(), null),
     BlocInit(AccountBloc(), null),
+    BlocInit(LoginBloc(), null),
+    BlocInit(RegisterBloc(), null)
   ].toList());
   runApp(const MyApp());
 }
