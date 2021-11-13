@@ -10,6 +10,9 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -39,20 +42,21 @@ class _LoginViewState extends State<LoginView> {
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
+                      children: <Widget>[
+                        const Text(
                           "Username",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 15),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextField(
+                            controller: usernameController,
                             obscureText: false,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                fillColor: Color(0xfff3f3f4),
+                                fillColor: Colors.white,
                                 filled: true))
                       ],
                     ),
@@ -61,20 +65,21 @@ class _LoginViewState extends State<LoginView> {
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
+                      children: <Widget>[
+                        const Text(
                           "Password",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 15),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextField(
+                            controller: passwordController,
                             obscureText: true,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                fillColor: Color(0xfff3f3f4),
+                                fillColor: Colors.white,
                                 filled: true))
                       ],
                     ),
@@ -83,8 +88,9 @@ class _LoginViewState extends State<LoginView> {
               ),
               InkWell(
                   onTap: () {
-                    Provider.getBloc<LoginBloc>()
-                        .dispatch(LoginClickOnLogInEvent());
+                    Provider.getBloc<LoginBloc>().dispatch(
+                        LoginClickOnLogInEvent(
+                            usernameController.text, passwordController.text));
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -99,12 +105,12 @@ class _LoginViewState extends State<LoginView> {
                             blurRadius: 5,
                             spreadRadius: 2)
                       ],
-                      gradient: const LinearGradient(
+                      gradient: LinearGradient(
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                         colors: [
                           Colors.blue,
-                          Color(0xff14279B),
+                          Colors.blue.shade900,
                         ],
                       ),
                     ),

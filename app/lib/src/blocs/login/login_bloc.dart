@@ -16,13 +16,22 @@ class LoginBloc extends Bloc<LoginState, LoginEvent> {
   @override
   Future<void> mapEventToState(Object event) async {
     if (event is LoginClickOnLogInEvent) {
-      print("Call API TO LOGIN");
+      setState(await _LoginClickOnLogin(event));
     }
     if (event is LoginClickOnRegisterEvent) {
       setState(LoginClickOnRegister());
     }
-    if (event is LoginClickOnRegisterDoneEvent) {
+    if (event is LoginClickOnRegisterDoneEvent ||
+        event is LoginClickOnLogInDoneEvent) {
       setState(LoginLoggingIn());
+    }
+  }
+
+  Future<LoginState> _LoginClickOnLogin(LoginClickOnLogInEvent event) async {
+    try {
+      return LoginLoggedIn(event.username);
+    } on Exception catch (error) {
+      return LoginError(error.toString());
     }
   }
 }

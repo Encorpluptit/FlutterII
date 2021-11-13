@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movieapp/src/blocs/account/account_bloc.dart';
 import 'package:movieapp/src/blocs/login/login_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/ui/bloc/bloc_builder.dart';
@@ -39,8 +40,12 @@ class _LoginScreenState extends State<LoginScreen> {
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
-          if (state is LoginClickOnLogIn) {
-            bloc.dispatch(LoginClickOnLogInEvent());
+          if (state is LoginLoggedIn) {
+            bloc.dispatch(LoginClickOnLogInDoneEvent());
+            Navigator.pop(context);
+            Provider.getBloc<AccountBloc>()
+                .dispatch(AccountLoggedInEvent(state.username));
+            // bloc.dispatch(LoginClickOnLogInEvent());
           }
           if (state is LoginClickOnRegister) {
             Navigator.pop(context);

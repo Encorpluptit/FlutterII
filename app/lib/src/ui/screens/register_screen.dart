@@ -49,7 +49,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             });
           }
           if (state is RegisterClickOnRegister) {
-            bloc.dispatch(RegisterClickOnRegisterEvent());
+            bloc.dispatch(RegisterClickOnRegisterEvent(
+                state.email, state.username, state.password));
           }
         },
         child: BlocBuilder<RegisterBloc, RegisterState>(

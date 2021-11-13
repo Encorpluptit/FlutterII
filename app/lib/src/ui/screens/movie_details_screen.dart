@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/movie_details/movie_details_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/ui/bloc/bloc_builder.dart';
-import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
 import 'package:movieapp/src/ui/widgets/movie_details.dart';
 
 class MovieDetailsScreen extends StatefulWidget {

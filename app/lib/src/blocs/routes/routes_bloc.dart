@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:movieapp/src/blocs/bloc.dart';
-import 'package:movieapp/src/models/movie.dart';
 
 part 'routes_bloc_event.dart';
 part 'routes_state.dart';

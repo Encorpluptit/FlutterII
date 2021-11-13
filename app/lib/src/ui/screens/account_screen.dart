@@ -41,20 +41,16 @@ class _AccountScreenState extends State<AccountScreen> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
           if (state is AccountClickOnLogIn) {
-            Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    builder: (context) => const LoginScreen())).then((_) {
-              bloc.dispatch(AccountBackToMainEvent());
-            });
+            bloc.dispatch(AccountBackToMainEvent());
+            Navigator.push(context,
+                CupertinoPageRoute(builder: (context) => const LoginScreen()));
           }
           if (state is AccountClickOnRegister) {
+            bloc.dispatch(AccountBackToMainEvent());
             Navigator.push(
                 context,
                 CupertinoPageRoute(
-                    builder: (context) => const RegisterScreen())).then((_) {
-              bloc.dispatch(AccountBackToMainEvent());
-            });
+                    builder: (context) => const RegisterScreen()));
           }
         },
         child: BlocBuilder<AccountBloc, AccountState>(
@@ -68,8 +64,11 @@ class _AccountScreenState extends State<AccountScreen> {
             },
             builder: (context, state) {
               if (state is AccountLoggedIn) {
-                return (const Center(
-                  child: Text('Welcome mister'),
+                return (Center(
+                  child: AccountView(
+                    loggedIn: true,
+                    username: state.username,
+                  ),
                 ));
               } else if (state is AccountGuest) {
                 return (const Center(

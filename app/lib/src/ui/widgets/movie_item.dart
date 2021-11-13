@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
-import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/models/movie.dart';
 import 'package:movieapp/src/ui/widgets/custom_image.dart';
 

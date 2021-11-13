@@ -22,7 +22,16 @@ class RegisterBloc extends Bloc<RegisterState, RegisterEvent> {
       setState(RegisterRegistering());
     }
     if (event is RegisterClickOnRegisterEvent) {
-      setState(RegisterClickOnRegister());
+      setState(await _RegisterClickOnRegister(event));
+    }
+  }
+
+  Future<RegisterState> _RegisterClickOnRegister(
+      RegisterClickOnRegisterEvent event) async {
+    try {
+      return RegisterRegistered();
+    } on Exception catch (error) {
+      return RegisterError(error.toString());
     }
   }
 }

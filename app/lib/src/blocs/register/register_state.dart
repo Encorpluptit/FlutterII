@@ -13,7 +13,15 @@ class RegisterClickOnLogIn extends RegisterState {
 }
 
 class RegisterClickOnRegister extends RegisterState {
-  RegisterClickOnRegister();
+  final String email;
+  final String username;
+  final String password;
+
+  RegisterClickOnRegister(this.email, this.username, this.password);
+}
+
+class RegisterRegistered extends RegisterState {
+  RegisterRegistered();
 }
 
 class RegisterError extends RegisterState {

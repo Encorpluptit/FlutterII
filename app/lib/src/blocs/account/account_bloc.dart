@@ -24,5 +24,11 @@ class AccountBloc extends Bloc<AccountState, AccountEvent> {
     if (event is AccountBackToMainEvent) {
       setState(AccountGuest());
     }
+    if (event is AccountLoggedInEvent) {
+      setState(AccountLoggedIn(event.username));
+    }
+    if (event is AccountClickOnLogOutEvent) {
+      setState(AccountGuest());
+    }
   }
 }

@@ -71,7 +71,6 @@ class _MovieSearchScreen extends State<MovieSearchScreen> {
               return (true);
             },
             builder: (context, state) {
-              print(state);
               if (state is MovieSearchLoading) {
                 return (const Center(
                   child: CircularProgressIndicator(),
