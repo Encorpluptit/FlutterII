@@ -9,7 +9,10 @@ class LoginLoggingIn extends LoginState {
 }
 
 class LoginClickOnLogIn extends LoginState {
-  LoginClickOnLogIn();
+  final String username;
+  final String password;
+
+  LoginClickOnLogIn(this.username, this.password);
 }
 
 class LoginClickOnRegister extends LoginState {

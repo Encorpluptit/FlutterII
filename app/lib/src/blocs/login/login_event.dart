@@ -8,3 +8,5 @@ abstract class LoginEvent {
 class LoginClickOnLogInEvent extends LoginEvent {}
 
 class LoginClickOnRegisterEvent extends LoginEvent {}
+
+class LoginClickOnRegisterDoneEvent extends LoginEvent {}

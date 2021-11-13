@@ -41,13 +41,11 @@ class _AccountScreenState extends State<AccountScreen> {
           }
           if (state is AccountClickOnLogIn) {
             // ignore: avoid_print
-            print('Click on login');
             Navigator.push(context,
                 CupertinoPageRoute(builder: (context) => const LoginScreen()));
           }
           if (state is AccountClickOnRegister) {
             // ignore: avoid_print
-            print('Click on register');
             Navigator.push(
                 context,
                 CupertinoPageRoute(
