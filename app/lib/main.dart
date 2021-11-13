@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/src/blocs/account/account_bloc.dart';
 import 'package:movieapp/src/blocs/bloc.dart';
 import 'package:movieapp/src/blocs/movie_details/movie_details_bloc.dart';
 import 'package:movieapp/src/blocs/movie_list/movie_list_bloc.dart';
@@ -24,6 +25,7 @@ void main() {
     BlocInit(MovieListBloc(), MovieListLoadEvent()),
     BlocInit(RoutesBloc(), null),
     BlocInit(MovieDetailsBloc(), null),
+    BlocInit(AccountBloc(), null),
   ].toList());
   runApp(const MyApp());
 }
