@@ -21,5 +21,8 @@ class AccountBloc extends Bloc<AccountState, AccountEvent> {
     if (event is AccountClickOnRegisterEvent) {
       setState(AccountClickOnRegister());
     }
+    if (event is AccountBackToMainEvent) {
+      setState(AccountGuest());
+    }
   }
 }

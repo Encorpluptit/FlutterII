@@ -42,12 +42,13 @@ class _LoginScreenState extends State<LoginScreen> {
             bloc.dispatch(LoginClickOnLogInEvent());
           }
           if (state is LoginClickOnRegister) {
-            bloc.dispatch(LoginClickOnRegisterDoneEvent());
             Navigator.pop(context);
             Navigator.push(
                 context,
                 CupertinoPageRoute(
-                    builder: (context) => const RegisterScreen()));
+                    builder: (context) => const RegisterScreen())).then((_) {
+              bloc.dispatch(LoginClickOnRegisterDoneEvent());
+            });
           }
         },
         child: BlocBuilder<LoginBloc, LoginState>(

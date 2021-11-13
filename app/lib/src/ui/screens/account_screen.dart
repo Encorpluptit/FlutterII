@@ -6,7 +6,6 @@ import 'package:movieapp/src/ui/bloc/bloc_builder.dart';
 import 'package:movieapp/src/ui/screens/login_screen.dart';
 import 'package:movieapp/src/ui/screens/register_screen.dart';
 import 'package:movieapp/src/ui/widgets/account.dart';
-// import 'package:movieapp/src/ui/widgets/account.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -42,16 +41,21 @@ class _AccountScreenState extends State<AccountScreen> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
           if (state is AccountClickOnLogIn) {
-            // ignore: avoid_print
-            Navigator.push(context,
-                CupertinoPageRoute(builder: (context) => const LoginScreen()));
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => const LoginScreen())).then((_) {
+              bloc.dispatch(AccountBackToMainEvent());
+            });
           }
           if (state is AccountClickOnRegister) {
             // ignore: avoid_print
             Navigator.push(
                 context,
                 CupertinoPageRoute(
-                    builder: (context) => const RegisterScreen()));
+                    builder: (context) => const RegisterScreen())).then((_) {
+              bloc.dispatch(AccountBackToMainEvent());
+            });
           }
         },
         child: BlocBuilder<AccountBloc, AccountState>(

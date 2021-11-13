@@ -8,3 +8,5 @@ abstract class AccountEvent {
 class AccountClickOnLogInEvent extends AccountEvent {}
 
 class AccountClickOnRegisterEvent extends AccountEvent {}
+
+class AccountBackToMainEvent extends AccountEvent {}
