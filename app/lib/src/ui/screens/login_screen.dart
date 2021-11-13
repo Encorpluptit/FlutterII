@@ -61,11 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
               return (true);
             },
             builder: (context, state) {
-              if (state is LoginLoggedIn) {
-                return (const Center(
-                  child: Text('Welcome mister'),
-                ));
-              }
               if (state is LoginLoggingIn) {
                 return (const Center(
                   child: LoginView(),
