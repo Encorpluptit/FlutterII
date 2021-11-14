@@ -28,8 +28,29 @@ A Small Movie Application
 
 ## How to Use
 
-- When the application is launched, you land on the HomePage
+- When the application is launched, you land on the HomePage.
 
+<div style="text-align: center;">
+
+![HomePage](./assets/HomePage.png)
+
+</div>
+
+- you can click on any movie to see the detail about a movie
+
+<div style="text-align: center;">
+
+![HomePage](./assets/MovieDetails_1.png)
+
+</div>
+
+- you'll find a number of useful information about each movie, like the synopsis or some screenshots
+
+<div style="text-align: center;">
+
+![HomePage](./assets/MovieDetails_2.png)
+
+</div>
 
 [comment]: <> (## Getting Started)
 
