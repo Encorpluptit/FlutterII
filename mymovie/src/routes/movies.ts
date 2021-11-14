@@ -1,13 +1,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { Movie } from '../database/schema/movies';
+import { Movie as MovieType } from '../types/Movie';
 
 const router = express.Router();
 
 router.get('/', async (req: express.Request, res: express.Response) => {
     const movies = await Movie.find().exec();
 
-    const result = movies.map((movie) => ({
+    const result = movies.map((movie: MovieType) => ({
         'id': movie._id,
         'title': movie.title,
         'synopsis': movie.synopsis,
@@ -139,9 +140,9 @@ router.post('/search', async (req: express.Request, res: express.Response) => {
         return;
     }
 
-    const movies = Movie.find({ $text: { $search: content } }).exec();
+    const movies = await Movie.find({ $text: { $search: content } }).exec();
 
-    const result = movies.map((movie) => ({
+    const result = movies.map((movie: MovieType) => ({
         'id': movie._id,
         'title': movie.title,
         'synopsis': movie.synopsis,
