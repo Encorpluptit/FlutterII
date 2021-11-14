@@ -134,7 +134,7 @@ router.post('/search', async (req: express.Request, res: express.Response) => {
     if (!content) {
         res.status(400).send({
             'success': false,
-            'data': "Bad request",
+            'data': 'Bad request',
         });
         return;
     }
