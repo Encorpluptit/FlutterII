@@ -1,6 +1,12 @@
-# movieapp
+# MyMovie
 
 A Small Movie Application
+
+<div style="text-align: center;">
+
+![HomePage](./assets/HomePage.png)
+
+</div>
 
 ## Requirements
  - ### Flutter
@@ -19,6 +25,11 @@ A Small Movie Application
  
   The Database is already hosted with Heroku with gitlabCI
 - 
+
+## How to Use
+
+- When the application is launched, you land on the HomePage
+
 
 [comment]: <> (## Getting Started)
 
