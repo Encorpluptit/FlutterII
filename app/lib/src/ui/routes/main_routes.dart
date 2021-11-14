@@ -16,7 +16,6 @@ class NavigationRouteInterface {
 const List<NavigationRouteInterface> navigationRoutes = [
   NavigationRouteInterface(Icon(Icons.home), "Home", MovieListScreen()),
   NavigationRouteInterface(Icon(Icons.search), "Search", MovieSearchScreen()),
-  NavigationRouteInterface(Icon(Icons.home), "Search", MovieListScreen()),
   NavigationRouteInterface(
       Icon(Icons.account_circle), "Account", AccountScreen()),
 ];
