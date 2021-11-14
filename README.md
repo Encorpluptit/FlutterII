@@ -44,7 +44,7 @@ A Small Movie Application
 
 </div>
 
-- you'll find a number of useful information about each movie, like the synopsis or some screenshots
+- you'll find a number of useful information about each movie, like the synopsis, the genres associated with this movie or some screenshots
 
 <div style="text-align: center;">
 
