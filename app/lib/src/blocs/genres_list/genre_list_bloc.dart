@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:movieapp/src/blocs/bloc.dart';
-import 'package:movieapp/src/models/genre.dart';
 import 'package:movieapp/src/models/genre_filter.dart';
 import 'package:movieapp/src/models/movie.dart';
 import 'package:movieapp/src/resources/repository.dart';
@@ -21,11 +20,8 @@ class GenreListBloc extends Bloc<GenreListState, GenreListEvent> {
     if (event is GenreListLoadEvent || event is GenreListRefreshEvent) {
       setState(await _genreListLoad());
     }
-    if (event is GenreListClickAddToFilter) {
-      setState(await _genreListAddToFilter(event));
-    }
-    if (event is GenreListClickRemoveFromFilter) {
-      setState(await _genreListRemoveFromFilter(event));
+    if (event is GenreListUpdateFilters) {
+      setState(await _genreListUpdateFilters(event));
     }
   }
 
@@ -43,13 +39,21 @@ class GenreListBloc extends Bloc<GenreListState, GenreListEvent> {
     }
   }
 
-  Future<GenreListState> _genreListAddToFilter(
-      GenreListClickAddToFilter event) async {
-    return (GenreListClickAddToFilterSuccess(event.genre));
-  }
-
-  Future<GenreListState> _genreListRemoveFromFilter(
-      GenreListClickRemoveFromFilter event) async {
-    return (GenreListClickRemoveFromFilterSuccess(event.genre));
+  Future<GenreListState> _genreListUpdateFilters(
+      GenreListUpdateFilters event) async {
+    try {
+      final _genres = await repository.fetchGenreList() as dynamic;
+      List<GenreFilter> genres =
+          _genres.map((e) => GenreFilter(id: e.id, name: e.name)).toList();
+      for (int i = 0; i < genres.length; i++) {
+        var elem =
+            event.genres.firstWhere((element) => element.id == genres[i].id);
+        elem.active = genres[i].active;
+      }
+      debugPrint(_genres.map((v) => '${v.id} -> ${v.name}').toString());
+      return GenreListUpdatedSuccess(genres);
+    } on Exception catch (error) {
+      return GenreListLoadedFailure(error.toString());
+    }
   }
 }

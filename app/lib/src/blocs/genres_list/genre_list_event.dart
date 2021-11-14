@@ -9,14 +9,26 @@ class GenreListLoadEvent extends GenreListEvent {}
 
 class GenreListRefreshEvent extends GenreListEvent {}
 
-class GenreListClickAddToFilter extends GenreListEvent {
-  final Genre genre;
+class GenreListAddFilters extends GenreListEvent {
+  final List<GenreFilter> genres;
 
-  const GenreListClickAddToFilter(this.genre);
+  const GenreListAddFilters(this.genres);
 }
 
-class GenreListClickRemoveFromFilter extends GenreListEvent {
-  final Genre genre;
+class GenreListUpdateFilters extends GenreListEvent {
+  final List<GenreFilter> genres;
 
-  const GenreListClickRemoveFromFilter(this.genre);
+  const GenreListUpdateFilters(this.genres);
 }
+
+// class GenreListClickAddToFilter extends GenreListEvent {
+//   final Genre genre;
+//
+//   const GenreListClickAddToFilter(this.genre);
+// }
+//
+// class GenreListClickRemoveFromFilter extends GenreListEvent {
+//   final Genre genre;
+//
+//   const GenreListClickRemoveFromFilter(this.genre);
+// }

@@ -7,7 +7,6 @@ import 'package:movieapp/src/ui/widgets/genres/filter_list.dart';
 import '../movie_item.dart';
 
 class GenreFilteredMovieListView extends StatefulWidget {
-  // TODO: provider
   final GenreListBloc bloc;
   final List<Movie> movies;
   final List<GenreFilter> filteredGenres;

@@ -26,23 +26,30 @@ class GenreListLoadedFailure extends GenreListState {
   GenreListLoadedFailure(this.cause);
 }
 
-class GenreListClickAddToFilterSuccess extends GenreListLoadedSuccess {
-  final Genre genre;
+class GenreListUpdatedSuccess extends GenreListState {
+  List<GenreFilter> filteredGenres = [];
+  List<Movie> movies = [];
 
-  GenreListClickAddToFilterSuccess(this.genre) {
-    for (int i = 0; i < filteredGenres.length; i++) {
-      if (filteredGenres[i].id == genre.id) {
-        filteredGenres[i].active = true;
-        debugPrint(
-            'GenreListClickAddToFilterSuccess: Activating ${genre.name}');
-        return;
-      }
-    }
-  }
+  GenreListUpdatedSuccess([this.filteredGenres = const []]);
 }
 
-class GenreListClickRemoveFromFilterSuccess extends GenreListState {
-  final Genre genre;
-
-  const GenreListClickRemoveFromFilterSuccess(this.genre);
-}
+// class GenreListClickAddToFilterSuccess extends GenreListLoadedSuccess {
+//   final Genre genre;
+//
+//   GenreListClickAddToFilterSuccess(this.genre) {
+//     for (int i = 0; i < filteredGenres.length; i++) {
+//       if (filteredGenres[i].id == genre.id) {
+//         filteredGenres[i].active = true;
+//         debugPrint(
+//             'GenreListClickAddToFilterSuccess: Activating ${genre.name}');
+//         return;
+//       }
+//     }
+//   }
+// }
+//
+// class GenreListClickRemoveFromFilterSuccess extends GenreListState {
+//   final Genre genre;
+//
+//   const GenreListClickRemoveFromFilterSuccess(this.genre);
+// }
