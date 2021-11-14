@@ -19,9 +19,10 @@ const MovieSchema = new mongoose.Schema({
     images: {
         type: [String],
     },
-    genre_ids: {
-        type: [Number],
-    }
+    genre_ids: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'genre'
+    }]
 });
 MovieSchema.index({ title: 'text', synopsis: 'text' });
 
