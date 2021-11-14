@@ -41,17 +41,15 @@ class GenreListBloc extends Bloc<GenreListState, GenreListEvent> {
 
   Future<GenreListState> _genreListUpdateFilters(
       GenreListUpdateFilters event) async {
+    debugPrint('Updating Genres Event');
     try {
-      final _genres = await repository.fetchGenreList() as dynamic;
-      List<GenreFilter> genres =
-          _genres.map((e) => GenreFilter(id: e.id, name: e.name)).toList();
-      for (int i = 0; i < genres.length; i++) {
-        var elem =
-            event.genres.firstWhere((element) => element.id == genres[i].id);
-        elem.active = genres[i].active;
+      final newFilters = event.newGenres;
+      for (int i = 0; i < newFilters.length; i++) {
+        var elem = event.genres
+            .firstWhere((element) => element.id == newFilters[i].id);
+        elem.active = newFilters[i].active;
       }
-      debugPrint(_genres.map((v) => '${v.id} -> ${v.name}').toString());
-      return GenreListUpdatedSuccess(genres);
+      return GenreListUpdatedSuccess(newFilters);
     } on Exception catch (error) {
       return GenreListLoadedFailure(error.toString());
     }

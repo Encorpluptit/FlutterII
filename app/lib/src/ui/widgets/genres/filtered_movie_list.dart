@@ -75,14 +75,14 @@ class _GenreFilteredMovieListState extends State<GenreFilteredMovieListView> {
         children: widget.movies.map<Widget>((movie) {
           return MovieItem(
             movie: movie,
-            onSearch: (String movie_id) {},
+            onSearch: (_) {},
           );
         }).toList(),
       ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        child: Container(height: 50.0),
-      ),
+      // bottomNavigationBar: BottomAppBar(
+      //   shape: const CircularNotchedRectangle(),
+      //   child: Container(height: 50.0),
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => print('ok'),
         tooltip: 'Filters',

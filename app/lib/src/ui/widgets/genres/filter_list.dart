@@ -55,7 +55,10 @@ class _MyFilterListState extends State<MyFilterListView> {
           // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           // textColor: Theme.of(context).accentColor,
           onPressed: () {
-            // bloc.dispatch(GenreListUpdate())
+            bloc.dispatch(
+              GenreListUpdateFilters(widget.filteredGenres, tmpFilters),
+            );
+            Navigator.pop(context);
             //widget.onOk();
           },
         ),

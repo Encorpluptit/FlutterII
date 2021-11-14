@@ -17,8 +17,9 @@ class GenreListAddFilters extends GenreListEvent {
 
 class GenreListUpdateFilters extends GenreListEvent {
   final List<GenreFilter> genres;
+  final List<GenreFilter> newGenres;
 
-  const GenreListUpdateFilters(this.genres);
+  const GenreListUpdateFilters(this.genres, this.newGenres);
 }
 
 // class GenreListClickAddToFilter extends GenreListEvent {
