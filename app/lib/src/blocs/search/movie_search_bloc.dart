@@ -28,7 +28,7 @@ class MovieSearchBloc extends Bloc<MovieSearchState, MovieSearchEvent> {
   Future<MovieSearchState> _MovieSearchLoad(MovieSearchFetchEvent event) async {
     try {
       final movies =
-          await repository.fetchMovieList(MovieListType.topRated) as dynamic;
+          await repository.fetchMovieBySearch(event.search) as dynamic;
       List<Movie> _movies = [];
       for (int i = 0; i < movies.length; i++) {
         _movies.add(Movie(movies[i]));
