@@ -128,4 +128,32 @@ router.post('/', async (req: express.Request, res: express.Response) => {
     });
 });
 
+router.post('/search', async (req: express.Request, res: express.Response) => {
+    const { content } = req.body;
+
+    if (!content) {
+        res.status(400).send({
+            'success': false,
+            'data': "Bad request",
+        });
+        return;
+    }
+
+    const movies = Movie.find({ $text: { $search: content } }).exec();
+
+    const result = movies.map((movie) => ({
+        'id': movie._id,
+        'title': movie.title,
+        'synopsis': movie.synopsis,
+        'release_date': movie.release_date,
+        'poster': movie.poster,
+        'images': movie.images,
+    }));
+
+    res.status(200).send({
+        'success': true,
+        'data': result,
+    });
+});
+
 export default router;
