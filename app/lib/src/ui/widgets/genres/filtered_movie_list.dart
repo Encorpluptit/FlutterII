@@ -26,7 +26,7 @@ class _GenreFilteredMovieListState extends State<GenreFilteredMovieListView> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(widget.filteredGenres.length.toString());
+    // debugPrint(widget.filteredGenres.length.toString());
     bool filterActive =
         widget.filteredGenres.indexWhere((element) => element.active == true) >=
             0;
@@ -39,7 +39,11 @@ class _GenreFilteredMovieListState extends State<GenreFilteredMovieListView> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => print('ok'),
+          onPressed: () => showDialog(
+              context: context,
+              builder: (context) {
+                return MyFilterListView(filteredGenres: widget.filteredGenres);
+              }),
           tooltip: 'Filters',
           child: const Icon(Icons.filter),
         ),
@@ -67,7 +71,7 @@ class _GenreFilteredMovieListState extends State<GenreFilteredMovieListView> {
     return Scaffold(
       body: GridView.count(
         cacheExtent: 999,
-        crossAxisCount: 1,
+        crossAxisCount: 3,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
         padding: const EdgeInsets.all(8),
@@ -75,16 +79,18 @@ class _GenreFilteredMovieListState extends State<GenreFilteredMovieListView> {
         children: widget.movies.map<Widget>((movie) {
           return MovieItem(
             movie: movie,
-            onSearch: (_) {},
+            onSearch: (movieID) {
+              widget.bloc.dispatch(GenreListClickOnDetails(movieID));
+            },
           );
         }).toList(),
       ),
-      // bottomNavigationBar: BottomAppBar(
-      //   shape: const CircularNotchedRectangle(),
-      //   child: Container(height: 50.0),
-      // ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => print('ok'),
+        onPressed: () => showDialog(
+            context: context,
+            builder: (context) {
+              return MyFilterListView(filteredGenres: widget.filteredGenres);
+            }),
         tooltip: 'Filters',
         child: const Icon(Icons.filter),
       ),

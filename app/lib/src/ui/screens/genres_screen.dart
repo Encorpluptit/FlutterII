@@ -5,7 +5,8 @@ import 'package:movieapp/src/blocs/genres_list/genre_list_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
 import 'package:movieapp/src/ui/bloc/bloc_builder.dart';
 import 'package:movieapp/src/ui/widgets/genres/filtered_movie_list.dart';
-import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
+
+import 'movie_details_screen.dart';
 
 class MovieGenreScreen extends StatefulWidget {
   const MovieGenreScreen({Key? key}) : super(key: key);
@@ -26,7 +27,10 @@ class _MovieGenreScreenState extends State<MovieGenreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const HomeAppBar(),
+      appBar: AppBar(
+        centerTitle: false,
+        title: const Text('MyMovie - Genres'),
+      ),
       body: BlocListener<GenreListBloc, GenreListState>(
         bloc: bloc,
         shouldBuild: (_) => true,
@@ -45,19 +49,19 @@ class _MovieGenreScreenState extends State<MovieGenreScreen> {
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
-          // if (state is GenreListClickOnDetailsSuccess) {
-          //   Navigator.push(
-          //       context,
-          //       CupertinoPageRoute(
-          //           builder: (context) => MovieDetailsScreen(id: state.id)));
-          // }
+          if (state is GenreListClickOnDetailsSuccess) {
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => MovieDetailsScreen(id: state.id)));
+          }
         },
         child: BlocBuilder<GenreListBloc, GenreListState>(
             bloc: bloc,
             shouldBuild: (GenreListState current) {
-              // if (current is GenreListClickOnDetailsSuccess) {
-              //   return (false);
-              // }
+              if (current is GenreListClickOnDetailsSuccess) {
+                return (false);
+              }
               return (true);
             },
             builder: (context, state) {
@@ -66,6 +70,16 @@ class _MovieGenreScreenState extends State<MovieGenreScreen> {
                   child: CircularProgressIndicator(),
                 ));
               } else if (state is GenreListLoadedSuccess) {
+                return (RefreshIndicator(
+                    onRefresh: () async {
+                      bloc.dispatch(GenreListLoadEvent());
+                    },
+                    child: GenreFilteredMovieListView(
+                      bloc: bloc,
+                      movies: state.movies,
+                      filteredGenres: state.filteredGenres,
+                    )));
+              } else if (state is GenreListUpdatedSuccess) {
                 return (RefreshIndicator(
                     onRefresh: () async {
                       bloc.dispatch(GenreListLoadEvent());

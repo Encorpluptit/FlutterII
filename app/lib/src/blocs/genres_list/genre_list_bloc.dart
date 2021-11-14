@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:collection/src/iterable_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:movieapp/src/blocs/bloc.dart';
+import 'package:movieapp/src/constants/global.dart';
 import 'package:movieapp/src/models/genre_filter.dart';
 import 'package:movieapp/src/models/movie.dart';
 import 'package:movieapp/src/resources/repository.dart';
@@ -23,6 +25,9 @@ class GenreListBloc extends Bloc<GenreListState, GenreListEvent> {
     if (event is GenreListUpdateFilters) {
       setState(await _genreListUpdateFilters(event));
     }
+    if (event is GenreListClickOnDetails) {
+      setState(await _clickOnDetails(event));
+    }
   }
 
   Future<GenreListState> _genreListLoad() async {
@@ -32,7 +37,6 @@ class GenreListBloc extends Bloc<GenreListState, GenreListEvent> {
       for (int i = 0; i < genres.length; i++) {
         _genres.add(GenreFilter.fromJSON(genres[i]));
       }
-      debugPrint(_genres.map((v) => '${v.id} -> ${v.name}').toString());
       return GenreListLoadedSuccess(_genres);
     } on Exception catch (error) {
       return GenreListLoadedFailure(error.toString());
@@ -41,17 +45,29 @@ class GenreListBloc extends Bloc<GenreListState, GenreListEvent> {
 
   Future<GenreListState> _genreListUpdateFilters(
       GenreListUpdateFilters event) async {
-    debugPrint('Updating Genres Event');
     try {
-      final newFilters = event.newGenres;
-      for (int i = 0; i < newFilters.length; i++) {
-        var elem = event.genres
-            .firstWhere((element) => element.id == newFilters[i].id);
-        elem.active = newFilters[i].active;
+      final filters = event.newGenres.where((e) => e.active == true);
+      final movies =
+          await repository.fetchMovieList(MovieListType.topRated) as dynamic;
+      List<Movie> _movies = [];
+
+      for (int i = 0; i < movies.length; i++) {
+        var movie = Movie(movies[i]);
+        for (int j = 0; j < movie.genres.length; j++) {
+          GenreFilter? f =
+              filters.firstWhereOrNull((e) => e.name == movie.genres[j]);
+          if (f != null) {
+            _movies.add(movie);
+          }
+        }
       }
-      return GenreListUpdatedSuccess(newFilters);
+      return GenreListUpdatedSuccess(event.newGenres, _movies);
     } on Exception catch (error) {
       return GenreListLoadedFailure(error.toString());
     }
+  }
+
+  Future<GenreListState> _clickOnDetails(GenreListClickOnDetails event) async {
+    return GenreListClickOnDetailsSuccess(event.id);
   }
 }

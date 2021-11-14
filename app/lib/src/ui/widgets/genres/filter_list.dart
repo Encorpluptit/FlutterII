@@ -20,8 +20,10 @@ class _MyFilterListState extends State<MyFilterListView> {
 
   @override
   void initState() {
-    tmpFilters =
-        widget.filteredGenres.map((genre) => GenreFilter.clone(genre)).toList();
+    tmpFilters = widget.filteredGenres
+        .map((genre) =>
+            GenreFilter(id: genre.id, name: genre.name, active: genre.active))
+        .toList();
     super.initState();
   }
 
@@ -37,29 +39,26 @@ class _MyFilterListState extends State<MyFilterListView> {
         TextButton(
           child: const Text('Reset'),
           onPressed: () {
-            for (int i = 0; i < tmpFilters.length; i++) {
-              tmpFilters[i].active = false;
-            }
-            setState(() {});
+            setState(() {
+              for (int i = 0; i < tmpFilters.length; i++) {
+                tmpFilters[i].active = false;
+              }
+            });
           },
         ),
         TextButton(
           child: const Text('Cancel'),
           onPressed: () {
-            // TODO: change this hack
             Navigator.pop(context);
           },
         ),
         TextButton(
           child: const Text('Confirm'),
-          // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          // textColor: Theme.of(context).accentColor,
           onPressed: () {
             bloc.dispatch(
               GenreListUpdateFilters(widget.filteredGenres, tmpFilters),
             );
             Navigator.pop(context);
-            //widget.onOk();
           },
         ),
       ],
