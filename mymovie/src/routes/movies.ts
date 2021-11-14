@@ -6,7 +6,7 @@ import { Movie as MovieType } from '../types/Movie';
 const router = express.Router();
 
 router.get('/', async (req: express.Request, res: express.Response) => {
-    const movies = await Movie.find().exec();
+    const movies = await Movie.find().populate("genre_ids").exec();
 
     const result = movies.map((movie: MovieType) => ({
         'id': movie._id,
@@ -15,7 +15,7 @@ router.get('/', async (req: express.Request, res: express.Response) => {
         'release_date': movie.release_date,
         'poster': movie.poster,
         'images': movie.images,
-        'genre_ids': movie.genre_ids,
+        'genre_ids': movie.genre_ids.map((_movie: any) => _movie.name),
     }));
 
     res.status(200).send({
@@ -35,7 +35,7 @@ router.get('/:id', async (req: express.Request, res: express.Response) => {
         return;
     }
 
-    const movie = await Movie.findById(id).exec();
+    const movie = await Movie.findById(id).populate("genre_ids").exec();
 
     if (!movie) {
         res.status(404).send({
@@ -54,7 +54,7 @@ router.get('/:id', async (req: express.Request, res: express.Response) => {
             release_date: movie.release_date,
             poster: movie.poster,
             images: movie.images,
-            genre_ids: movie.genre_ids,
+            genre_ids: movie.genre_ids.map((_movie: any) => _movie.name),
         },
     });
 });
@@ -142,7 +142,7 @@ router.post('/search', async (req: express.Request, res: express.Response) => {
         return;
     }
 
-    const movies = await Movie.find({ $text: { $search: content } }).exec();
+    const movies = await Movie.find({ $text: { $search: content } }).populate("genre_ids").exec();
 
     const result = movies.map((movie: MovieType) => ({
         'id': movie._id,
@@ -151,6 +151,7 @@ router.post('/search', async (req: express.Request, res: express.Response) => {
         'release_date': movie.release_date,
         'poster': movie.poster,
         'images': movie.images,
+        'genre_ids': movie.genre_ids.map((_movie: any) => _movie.name),
     }));
 
     res.status(200).send({
