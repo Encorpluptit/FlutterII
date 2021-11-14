@@ -21,7 +21,7 @@ router.get('/', async (req: express.Request, res: express.Response) => {
 router.get('/:id', async (req: express.Request, res: express.Response) => {
     const {id} = req.params;
 
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+    if (!id) {
         res.status(400).send({
             'success': true,
             'data': 'Bad request',
