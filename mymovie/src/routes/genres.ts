@@ -17,4 +17,33 @@ router.get('/', async (req: express.Request, res: express.Response) => {
     });
 });
 
+router.get('/:id', async (req: express.Request, res: express.Response) => {
+    const {id} = req.params;
+
+    if (!id) {
+        res.status(400).send({
+            'success': true,
+            'data': 'Bad request',
+        });
+        return;
+    }
+
+    const genre = await Genre.findOne({id}).exec();
+    if (!genre) {
+        res.status(404).send({
+            'success': true,
+            'data': 'Not found',
+        });
+        return;
+    }
+
+    res.status(200).send({
+        'success': true,
+        'data': {
+            id: genre.id,
+            name: genre.name,
+        },
+    });
+});
+
 export default router;

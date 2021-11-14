@@ -73,9 +73,29 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                     Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
+                          "Genres:",
+                          style: GoogleFonts.nunito(
+                            textStyle: const TextStyle(
+                                fontSize: 25.0, fontWeight: FontWeight.bold),
+                          ),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        widget.movie.genres.join(", "),
+                        style: GoogleFonts.nunito(
+                          textStyle: const TextStyle(fontSize: 20.0),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
                           "Screenshots",
                           style: GoogleFonts.nunito(
-                            textStyle: const TextStyle(fontSize: 25.0),
+                            textStyle: const TextStyle(
+                                fontSize: 25.0, fontWeight: FontWeight.bold),
                           ),
                         )),
                     CarouselSlider.builder(

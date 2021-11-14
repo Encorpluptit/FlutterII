@@ -30,7 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
       body: BlocListener<RegisterBloc, RegisterState>(
         bloc: bloc,
-        listener: (BuildContext context, RegisterState state) {
+        listener: (BuildContext context, RegisterState state) async {
           if (state is RegisterError) {
             var snackBar = SnackBar(
               duration: const Duration(minutes: 5),
@@ -40,17 +40,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
           if (state is RegisterClickOnLogIn) {
-            Navigator.pop(context);
-            Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    builder: (context) => const LoginScreen())).then((_) {
-              bloc.dispatch(RegisterClickOnLoginDoneEvent());
-            });
+            Navigator.pushReplacement(context,
+                CupertinoPageRoute(builder: (context) => const LoginScreen()));
+            bloc.dispatch(RegisterClickOnLoginDoneEvent());
           }
           if (state is RegisterClickOnRegister) {
             bloc.dispatch(RegisterClickOnRegisterEvent(
                 state.email, state.username, state.password));
+          }
+          if (state is RegisterRegistered) {
+            CupertinoPageRoute loginScreenRoute =
+                CupertinoPageRoute(builder: (context) => const LoginScreen());
+            bloc.dispatch(RegisterClickOnRegisterDoneEvent());
+            await Navigator.pushReplacement(context, loginScreenRoute);
           }
         },
         child: BlocBuilder<RegisterBloc, RegisterState>(
@@ -65,7 +67,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             builder: (context, state) {
               if (state is RegisterRegistering) {
                 return (const Center(
-                  // child: Text('Register'),
                   child: RegisterView(),
                 ));
               } else {

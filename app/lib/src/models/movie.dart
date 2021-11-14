@@ -13,11 +13,9 @@ class Movie {
     _synopsis = result['synopsis'];
     _release_date = result['release_date'];
     _poster = result['poster'];
-    _images = [];
     for (var i = 0; i < result["images"].length; i++) {
       _images.add(result["images"][i]);
     }
-    _genres = [];
     for (var i = 0; i < result["genres"].length; i++) {
       _genres.add(result["genres"][i]);
     }

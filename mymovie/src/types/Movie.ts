@@ -5,4 +5,5 @@ export interface Movie {
     release_date: string;
     poster: string;
     images: string[];
+    genres: any;
 }

@@ -21,7 +21,10 @@ class RegisterClickOnRegister extends RegisterState {
 }
 
 class RegisterRegistered extends RegisterState {
-  RegisterRegistered();
+  final String username;
+  final String password;
+
+  RegisterRegistered(this.username, this.password);
 }
 
 class RegisterError extends RegisterState {
