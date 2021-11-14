@@ -26,7 +26,6 @@ class _GenreFilteredMovieListState extends State<GenreFilteredMovieListView> {
 
   @override
   Widget build(BuildContext context) {
-    // debugPrint(widget.filteredGenres.length.toString());
     bool filterActive =
         widget.filteredGenres.indexWhere((element) => element.active == true) >=
             0;
