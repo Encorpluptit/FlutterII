@@ -111,8 +111,9 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               InkWell(
                   onTap: () {
-                    Provider.getBloc<RegisterBloc>()
-                        .dispatch(RegisterClickOnLogInEvent());
+                    Provider.getBloc<RegisterBloc>().dispatch(
+                        RegisterClickOnRegisterEvent(emailController.text,
+                            usernameController.text, passwordController.text));
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -176,25 +177,5 @@ class _RegisterViewState extends State<RegisterView> {
             ],
           ),
         ));
-    // return (Scaffold(
-    //     body: Center(
-    //   child: Column(
-    //     children: [
-    //       OutlinedButton(
-    //         onPressed: () {
-    //           Provider.getBloc<RegisterBloc>().dispatch(RegisterClickOnLogInEvent());
-    //         },
-    //         child: const Text('Register'),
-    //       ),
-    //       OutlinedButton(
-    //         onPressed: () {
-    //           Provider.getBloc<RegisterBloc>()
-    //               .dispatch(RegisterClickOnRegisterEvent());
-    //         },
-    //         child: const Text('Register'),
-    //       ),
-    //     ],
-    //   ),
-    // )));
   }
 }

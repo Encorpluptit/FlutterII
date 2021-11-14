@@ -154,25 +154,5 @@ class _LoginViewState extends State<LoginView> {
             ],
           ),
         ));
-    // return (Scaffold(
-    //     body: Center(
-    //   child: Column(
-    //     children: [
-    //       OutlinedButton(
-    //         onPressed: () {
-    //           Provider.getBloc<LoginBloc>().dispatch(LoginClickOnLogInEvent());
-    //         },
-    //         child: const Text('Login'),
-    //       ),
-    //       OutlinedButton(
-    //         onPressed: () {
-    //           Provider.getBloc<LoginBloc>()
-    //               .dispatch(LoginClickOnRegisterEvent());
-    //         },
-    //         child: const Text('Register'),
-    //       ),
-    //     ],
-    //   ),
-    // )));
   }
 }
