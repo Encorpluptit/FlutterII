@@ -4,7 +4,12 @@ class Genre extends BaseModel {
   int _id = 0;
   String _name = "";
 
-  Genre(result) {
+  Genre({required id, required String name}) {
+    _id = id;
+    _name = name;
+  }
+
+  Genre.fromJSON(result) {
     _id = result['id'];
     _name = result['name'];
   }

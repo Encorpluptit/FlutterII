@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:movieapp/src/blocs/bloc.dart';
 import 'package:movieapp/src/models/genre.dart';
+import 'package:movieapp/src/models/genre_filter.dart';
 import 'package:movieapp/src/models/movie.dart';
 import 'package:movieapp/src/resources/repository.dart';
 
@@ -31,9 +32,9 @@ class GenreListBloc extends Bloc<GenreListState, GenreListEvent> {
   Future<GenreListState> _genreListLoad() async {
     try {
       final genres = await repository.fetchGenreList() as dynamic;
-      List<Genre> _genres = [];
+      List<GenreFilter> _genres = [];
       for (int i = 0; i < genres.length; i++) {
-        _genres.add(Genre(genres[i]));
+        _genres.add(GenreFilter.fromJSON(genres[i]));
       }
       debugPrint(_genres.map((v) => '${v.id} -> ${v.name}').toString());
       return GenreListLoadedSuccess(_genres);

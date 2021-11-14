@@ -71,8 +71,9 @@ class _MovieGenreScreenState extends State<MovieGenreScreen> {
                       bloc.dispatch(GenreListLoadEvent());
                     },
                     child: GenreFilteredMovieListView(
+                      bloc: bloc,
                       movies: state.movies,
-                      filteredGenresLength: state.filteredGenres.length,
+                      filteredGenres: state.filteredGenres,
                     )));
               } else if (state is GenreListLoadedFailure) {
                 return (Container());

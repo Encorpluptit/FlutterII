@@ -9,15 +9,15 @@ class GenreListLoading extends GenreListState {
 }
 
 class GenreListLoadedSuccess extends GenreListState {
-  final List<Genre> genres;
-  final List<Genre> filteredGenres;
-  final List<Movie> movies;
+  List<GenreFilter> filteredGenres = [];
+  List<Movie> movies = [];
 
-  const GenreListLoadedSuccess([
-    this.genres = const [],
-    this.filteredGenres = const [],
-    this.movies = const [],
-  ]);
+  GenreListLoadedSuccess([this.filteredGenres = const []]);
+  // GenreListLoadedSuccess([
+  //   this.genres = const [],
+  //   this.filteredGenres = const [],
+  //   this.movies = const [],
+  // ]);
 }
 
 class GenreListLoadedFailure extends GenreListState {
@@ -26,10 +26,19 @@ class GenreListLoadedFailure extends GenreListState {
   GenreListLoadedFailure(this.cause);
 }
 
-class GenreListClickAddToFilterSuccess extends GenreListState {
+class GenreListClickAddToFilterSuccess extends GenreListLoadedSuccess {
   final Genre genre;
 
-  const GenreListClickAddToFilterSuccess(this.genre);
+  GenreListClickAddToFilterSuccess(this.genre) {
+    for (int i = 0; i < filteredGenres.length; i++) {
+      if (filteredGenres[i].id == genre.id) {
+        filteredGenres[i].active = true;
+        debugPrint(
+            'GenreListClickAddToFilterSuccess: Activating ${genre.name}');
+        return;
+      }
+    }
+  }
 }
 
 class GenreListClickRemoveFromFilterSuccess extends GenreListState {
