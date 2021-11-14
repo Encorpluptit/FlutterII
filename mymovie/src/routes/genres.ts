@@ -1,6 +1,5 @@
 import express from 'express';
 import { Genre } from '../database/schema/genres';
-import mongoose from 'mongoose';
 
 const router = express.Router();
 
@@ -29,7 +28,7 @@ router.get('/:id', async (req: express.Request, res: express.Response) => {
         return;
     }
 
-    const genre = await Genre.findById(id).exec();
+    const genre = await Genre.findOne({id}).exec();
     if (!genre) {
         res.status(404).send({
             'success': true,
