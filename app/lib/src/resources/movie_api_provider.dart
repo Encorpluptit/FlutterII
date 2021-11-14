@@ -35,4 +35,14 @@ class MovieApiProvider extends NetworkProvider {
     }
     return ({});
   }
+
+  Future<Object> fetchGenres(List<String> ids) async {
+    var url = NewRequest("https://flutter-mymovie-api.herokuapp.com/genres/");
+    final response = await MakeGETRequest(url);
+    if (GetStatusCode() == 200) {
+      final results = json.decode(response);
+      return (results["data"]);
+    }
+    return ({});
+  }
 }

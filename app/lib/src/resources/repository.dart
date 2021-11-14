@@ -10,4 +10,6 @@ class Repository {
       moviesApiProvider.fetchMovieDetails(id);
   Future<Object> fetchMovieBySearch(String content) =>
       moviesApiProvider.fetchMovieBySearch(content);
+  Future<Object> fetchGenres(List<String> ids) =>
+      moviesApiProvider.fetchGenres(ids);
 }
