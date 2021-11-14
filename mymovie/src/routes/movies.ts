@@ -6,7 +6,7 @@ import { Movie as MovieType } from '../types/Movie';
 const router = express.Router();
 
 router.get('/', async (req: express.Request, res: express.Response) => {
-    const movies = await Movie.find().populate('genre_ids').exec();
+    const movies = await Movie.find().populate('genres').exec();
 
     const result = movies.map((movie: MovieType) => ({
         'id': movie._id,
@@ -35,7 +35,7 @@ router.get('/:id', async (req: express.Request, res: express.Response) => {
         return;
     }
 
-    const movie = await Movie.findById(id).populate('genre_ids').exec();
+    const movie = await Movie.findById(id).populate('genres').exec();
 
     if (!movie) {
         res.status(404).send({
@@ -142,7 +142,7 @@ router.post('/search', async (req: express.Request, res: express.Response) => {
         return;
     }
 
-    const movies = await Movie.find({ $text: { $search: content } }).populate('genre_ids').exec();
+    const movies = await Movie.find({ $text: { $search: content } }).populate('genres').exec();
 
     const result = movies.map((movie: MovieType) => ({
         'id': movie._id,
