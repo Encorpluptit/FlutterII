@@ -15,7 +15,7 @@ router.get('/', async (req: express.Request, res: express.Response) => {
         'release_date': movie.release_date,
         'poster': movie.poster,
         'images': movie.images,
-        'genre_ids': movie.genre_ids.map((_movie: any) => _movie.name),
+        'genres': movie.genres.map((_movie: any) => _movie.name),
     }));
 
     res.status(200).send({
@@ -54,7 +54,7 @@ router.get('/:id', async (req: express.Request, res: express.Response) => {
             release_date: movie.release_date,
             poster: movie.poster,
             images: movie.images,
-            genre_ids: movie.genre_ids.map((_movie: any) => _movie.name),
+            genres: movie.genres.map((_movie: any) => _movie.name),
         },
     });
 });
@@ -151,7 +151,7 @@ router.post('/search', async (req: express.Request, res: express.Response) => {
         'release_date': movie.release_date,
         'poster': movie.poster,
         'images': movie.images,
-        'genre_ids': movie.genre_ids.map((_movie: any) => _movie.name),
+        'genres': movie.genres.map((_movie: any) => _movie.name),
     }));
 
     res.status(200).send({

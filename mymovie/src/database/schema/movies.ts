@@ -19,7 +19,7 @@ const MovieSchema = new mongoose.Schema({
     images: {
         type: [String],
     },
-    genre_ids: [{
+    genres: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Genre'
     }]
