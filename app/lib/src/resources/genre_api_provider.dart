@@ -8,7 +8,7 @@ class GenreApiProvider extends NetworkProvider {
 
   Future<Object> fetchGenreList() async {
     var url = NewRequest("https://flutter-mymovie-api.herokuapp.com/genres");
-    final response = await MakeRequest(url);
+    final response = await MakeGETRequest(url);
     if (GetStatusCode() == 200) {
       final results = json.decode(response);
       return (results["data"]);

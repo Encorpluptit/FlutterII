@@ -14,4 +14,8 @@ class MovieDetailsLoadedSuccess extends MovieDetailsState {
   const MovieDetailsLoadedSuccess(this.movie);
 }
 
-class MovieDetailsLoadedFailure extends MovieDetailsState {}
+class MovieDetailsLoadedFailure extends MovieDetailsState {
+  String cause = "";
+
+  MovieDetailsLoadedFailure(this.cause);
+}

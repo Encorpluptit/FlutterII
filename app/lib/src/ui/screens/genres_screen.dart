@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/genres_list/genre_list_bloc.dart';
 import 'package:movieapp/src/blocs/provider.dart';
-import 'package:movieapp/src/ui/bloc_builder.dart';
+import 'package:movieapp/src/ui/bloc/bloc_builder.dart';
 import 'package:movieapp/src/ui/widgets/genres/filtered_movie_list.dart';
 import 'package:movieapp/src/ui/widgets/home_app_bar.dart';
 
@@ -27,7 +27,7 @@ class _MovieGenreScreenState extends State<MovieGenreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const HomeAppBar(),
-      body: BlocBuilder<GenreListBloc, GenreListState>(
+      body: BlocListener<GenreListBloc, GenreListState>(
         bloc: bloc,
         shouldBuild: (_) => true,
         listener: (BuildContext context, GenreListState state) {
@@ -52,7 +52,7 @@ class _MovieGenreScreenState extends State<MovieGenreScreen> {
           //           builder: (context) => MovieDetailsScreen(id: state.id)));
           // }
         },
-        child: BlocStream<GenreListBloc, GenreListState>(
+        child: BlocBuilder<GenreListBloc, GenreListState>(
             bloc: bloc,
             shouldBuild: (GenreListState current) {
               // if (current is GenreListClickOnDetailsSuccess) {

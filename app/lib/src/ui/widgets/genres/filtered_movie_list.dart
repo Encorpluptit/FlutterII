@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/genres_list/genre_list_bloc.dart';
 import 'package:movieapp/src/models/genre_filter.dart';
 import 'package:movieapp/src/models/movie.dart';
+import 'package:movieapp/src/ui/widgets//movie_item.dart';
 import 'package:movieapp/src/ui/widgets/genres/filter_list.dart';
-
-import '../movie_item.dart';
 
 class GenreFilteredMovieListView extends StatefulWidget {
   final GenreListBloc bloc;
@@ -76,6 +75,7 @@ class _GenreFilteredMovieListState extends State<GenreFilteredMovieListView> {
         children: widget.movies.map<Widget>((movie) {
           return MovieItem(
             movie: movie,
+            onSearch: (String movie_id) {},
           );
         }).toList(),
       ),

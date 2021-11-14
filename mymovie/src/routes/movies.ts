@@ -1,13 +1,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { Movie } from '../database/schema/movies';
+import { Movie as MovieType } from '../types/Movie';
 
 const router = express.Router();
 
 router.get('/', async (req: express.Request, res: express.Response) => {
     const movies = await Movie.find().exec();
 
-    const result = movies.map((movie) => ({
+    const result = movies.map((movie: MovieType) => ({
         'id': movie._id,
         'title': movie.title,
         'synopsis': movie.synopsis,
@@ -125,6 +126,34 @@ router.post('/', async (req: express.Request, res: express.Response) => {
             poster: movie.poster,
             images: movie.images,
         },
+    });
+});
+
+router.post('/search', async (req: express.Request, res: express.Response) => {
+    const { content } = req.body;
+
+    if (!content) {
+        res.status(400).send({
+            'success': false,
+            'data': 'Bad request',
+        });
+        return;
+    }
+
+    const movies = await Movie.find({ $text: { $search: content } }).exec();
+
+    const result = movies.map((movie: MovieType) => ({
+        'id': movie._id,
+        'title': movie.title,
+        'synopsis': movie.synopsis,
+        'release_date': movie.release_date,
+        'poster': movie.poster,
+        'images': movie.images,
+    }));
+
+    res.status(200).send({
+        'success': true,
+        'data': result,
     });
 });
 

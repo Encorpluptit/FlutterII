@@ -1,8 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 
 class NetworkProvider {
   final http.Client client = http.Client();
@@ -22,7 +22,31 @@ class NetworkProvider {
     }
   }
 
-  Future<String> MakeRequest(Uri url) async {
+  Future<String> MakePOSTRequest(Uri url, Object content) async {
+    try {
+      final response = await client.post(url,
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: content,
+          encoding: Encoding.getByName("utf-8"));
+
+      statusCode = response.statusCode;
+
+      return (response.body);
+    } on SocketException {
+      error = '[Error] No Internet connection';
+    } on HttpException {
+      error = "[Error] Couldn't find the resource";
+    } on FormatException {
+      error = "[Error] Bad response format";
+    }
+    debugPrint(error);
+    throw Exception(error);
+  }
+
+  Future<String> MakeGETRequest(Uri url) async {
     try {
       final response = await client.get(url);
 

@@ -20,6 +20,7 @@ const MovieSchema = new mongoose.Schema({
         type: [String],
     }
 });
+MovieSchema.index({ title: 'text', synopsis: 'text' });
 
 const Movie = mongoose.model('Movie', MovieSchema);
 

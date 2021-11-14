@@ -10,7 +10,8 @@ class Repository {
   Future<Object> fetchMovieList(String type) =>
       moviesApiProvider.fetchMovieList(type);
   Future<Object> fetchGenreList() => genresApiProvider.fetchGenreList();
-  //TODO
   Future<Object> fetchMovieDetails(String id) =>
-      moviesApiProvider.fetchMovieList(id);
+      moviesApiProvider.fetchMovieDetails(id);
+  Future<Object> fetchMovieBySearch(String content) =>
+      moviesApiProvider.fetchMovieBySearch(content);
 }

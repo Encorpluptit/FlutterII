@@ -1,6 +1,4 @@
-import 'package:movieapp/src/models/base_model.dart';
-
-class Genre extends BaseModel {
+class Genre {
   int _id = 0;
   String _name = "";
 

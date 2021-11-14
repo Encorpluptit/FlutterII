@@ -1,7 +1,4 @@
-import 'package:intl/intl.dart';
-import 'package:movieapp/src/models/base_model.dart';
-
-class Movie extends BaseModel {
+class Movie {
   String _id = "";
   String _title = "";
   String _synopsis = "";
@@ -16,6 +13,9 @@ class Movie extends BaseModel {
     _release_date = result['release_date'];
     _poster = result['poster'];
     _images = [];
+    for (var i = 0; i < result["images"].length; i++) {
+      _images.add(result["images"][i]);
+    }
   }
 
   String get id => _id;
