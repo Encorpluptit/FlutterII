@@ -15,6 +15,7 @@ router.get('/', async (req: express.Request, res: express.Response) => {
         'release_date': movie.release_date,
         'poster': movie.poster,
         'images': movie.images,
+        'genre_ids': movie.genre_ids,
     }));
 
     res.status(200).send({
@@ -53,6 +54,7 @@ router.get('/:id', async (req: express.Request, res: express.Response) => {
             release_date: movie.release_date,
             poster: movie.poster,
             images: movie.images,
+            genre_ids: movie.genre_ids,
         },
     });
 });
