@@ -11,20 +11,8 @@ router.get('/fill_db', async (req: express.Request, res: express.Response) => {
     let response = null;
 
     try {
-        response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`);
-        response = response.data;
-    } catch (err: unknown) {
-        res.status(500).send({
-            'success': false,
-            'data': 'Internal server error',
-        });
-        return;
-    }
-
-    try {
         response = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
         response = response.data;
-        console.log(response);
     } catch (err: unknown) {
         res.status(500).send({
             'success': false,
@@ -44,6 +32,17 @@ router.get('/fill_db', async (req: express.Request, res: express.Response) => {
 
         genre.save();
         genres_in_db.push(genre);
+    }
+
+    try {
+        response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`);
+        response = response.data;
+    } catch (err: unknown) {
+        res.status(500).send({
+            'success': false,
+            'data': 'Internal server error',
+        });
+        return;
     }
 
     const movies = response.results;
