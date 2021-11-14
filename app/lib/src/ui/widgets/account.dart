@@ -175,10 +175,9 @@ class _AccountViewState extends State<AccountView> {
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                   border: Border.all(color: Colors.white, width: 2),
                 ),
-                // ignore: prefer_const_constructors
-                child: Text(
+                child: const Text(
                   'Register now',
-                  style: const TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
             ),
