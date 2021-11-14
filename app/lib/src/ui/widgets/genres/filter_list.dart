@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/src/blocs/genres_list/genre_list_bloc.dart';
@@ -13,7 +11,7 @@ class MyFilterListView extends StatefulWidget {
       : super(key: key);
 
   @override
-  State createState() => _MyFilterListState();
+  _MyFilterListState createState() => _MyFilterListState();
 }
 
 class _MyFilterListState extends State<MyFilterListView> {
@@ -21,15 +19,17 @@ class _MyFilterListState extends State<MyFilterListView> {
   List<GenreFilter> tmpFilters = [];
 
   @override
+  void initState() {
+    tmpFilters = widget.filteredGenres
+        .map((genre) =>
+            GenreFilter(id: genre.id, name: genre.name, active: genre.active))
+        .toList();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ScrollController _scrollController = ScrollController();
-    // List<GenreFilter> tmpFilters = List.from(widget.filteredGenres);
-    // List<GenreFilter> tmpFilters = [...widget.filteredGenres];
-    // tmpFilters = [...widget.filteredGenres];
-    // tmpFilters =
-    //     widget.filteredGenres.map((g) => GenreFilter.clone(g)).toList();
-    // tmpFilters =
-    tmpFilters = JsonDecoder(JsonEncoder(widget.filteredGenres));
 
     return AlertDialog(
       title: const Text("Filters"),
@@ -88,14 +88,7 @@ class _MyFilterListState extends State<MyFilterListView> {
                             onChanged: (value) {
                               setState(() {
                                 if (value != null) {
-                                  debugPrint('Click ${tmpFilters[index].name}');
-                                  debugPrint(widget.filteredGenres[index].active
-                                      .toString());
                                   tmpFilters[index].active = value;
-                                  debugPrint(widget.filteredGenres[index].active
-                                      .toString());
-                                  debugPrint(
-                                      tmpFilters[index].active.toString());
                                 }
                               });
                             });
