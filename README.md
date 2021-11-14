@@ -24,7 +24,7 @@ A Small Movie Application
 - API:
  
   The Database is already hosted with Heroku with gitlabCI
-- 
+
 
 ## How to Use
 
@@ -40,7 +40,7 @@ A Small Movie Application
 
 <div style="text-align: center;">
 
-![HomePage](./assets/MovieDetails_1.png)
+![Details_1](./assets/MovieDetails_1.png)
 
 </div>
 
@@ -48,9 +48,34 @@ A Small Movie Application
 
 <div style="text-align: center;">
 
-![HomePage](./assets/MovieDetails_2.png)
+![Details_2](./assets/MovieDetails_2.png)
 
 </div>
+
+- you can search a movie by name
+
+<div style="text-align: center;">
+
+![Search](./assets/Search.png)
+
+</div>
+
+- you can search a movies by genres
+
+<div style="text-align: center;">
+
+![Genre](./assets/Genres.png)
+
+</div>
+
+- you can login/register to access more options
+
+<div style="text-align: center;">
+
+![Login](./assets/Login.png)
+
+</div>
+
 
 [comment]: <> (## Getting Started)
 
