@@ -1,5 +1,6 @@
 import express from 'express';
 import { Genre } from '../database/schema/genres';
+import mongoose from 'mongoose';
 
 const router = express.Router();
 
@@ -14,6 +15,35 @@ router.get('/', async (req: express.Request, res: express.Response) => {
     res.status(200).send({
         'success': true,
         'data': result,
+    });
+});
+
+router.get('/:id', async (req: express.Request, res: express.Response) => {
+    const {id} = req.params;
+
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        res.status(400).send({
+            'success': true,
+            'data': 'Bad request',
+        });
+        return;
+    }
+
+    const genre = await Genre.findById(id).exec();
+    if (!genre) {
+        res.status(404).send({
+            'success': true,
+            'data': 'Not found',
+        });
+        return;
+    }
+
+    res.status(200).send({
+        'success': true,
+        'data': {
+            id: genre.id,
+            name: genre.name,
+        },
     });
 });
 
