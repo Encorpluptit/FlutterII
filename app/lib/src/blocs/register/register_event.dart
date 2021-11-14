@@ -16,3 +16,5 @@ class RegisterClickOnRegisterEvent extends RegisterEvent {
 }
 
 class RegisterClickOnLoginDoneEvent extends RegisterEvent {}
+
+class RegisterClickOnRegisterDoneEvent extends RegisterEvent {}
