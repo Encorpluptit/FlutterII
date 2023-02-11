@@ -28,7 +28,7 @@
         "@typescript-eslint/eslint-plugin": "^5.2.0",
         "@typescript-eslint/parser": "^5.2.0",
         "eslint": "^8.1.0",
-        "nodemon": "^2.0.14"
+        "nodemon": "^2.0.20"
     },
     "nodemonConfig": {
         "exec": "ts-node src/app.ts",
